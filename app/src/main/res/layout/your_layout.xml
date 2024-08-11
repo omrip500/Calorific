@@ -1,0 +1,15 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="103dp"
+        android:layout_height="103dp"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_background"
+        android:gravity="center"
+        android:text="1250 / 1700 calories\nRemaining: 450"
+        android:textAlignment="center"
+        android:textColor="#000000" />
+</FrameLayout>

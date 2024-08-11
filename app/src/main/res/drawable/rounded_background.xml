@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@color/light_gray"/> <!-- צבע רקע בהיר יותר -->
+    <stroke android:width="10dp" android:color="@color/green"/> <!-- גבול עבה עוד יותר בצבע ירוק -->
+    <padding
+        android:left="16dp"
+        android:top="16dp"
+        android:right="16dp"
+        android:bottom="16dp"/> <!-- מרווח פנימי בתוך העיגול -->
+</shape>

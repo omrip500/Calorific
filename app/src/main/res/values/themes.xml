@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Calorific" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- צבע הכפתורים -->
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorButtonNormal">@color/green</item>
+        <item name="buttonStyle">@style/CustomButtonStyle</item>
+    </style>
+
+    <style name="Theme.Calorific" parent="Base.Theme.Calorific" />
+</resources>
