@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
+        android:name=".Manegment.MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -31,7 +32,7 @@
             android:name=".AddNewMealActivity"
             android:exported="false" />
         <activity
-            android:name=".AddFromPreparedMealsActivity"
+            android:name=".ReadyMealsActivity"
             android:exported="false" />
         <activity
             android:name=".AddFoodActivity"

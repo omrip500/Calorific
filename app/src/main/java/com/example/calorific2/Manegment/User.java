@@ -14,8 +14,8 @@ public class User implements Serializable {
     private double gramOfProtein;
     private double caloriesBurned;
     private double caloriesCunsumption;
-
     private ArrayList<Meal> meals;
+    private ArrayList<ReadyMeal> readyMeals;
 
     public User(String firstName, String lastName, int age, double weight, int caloriesAmountPerDay,
                 double gramOfCarbs, double gramOfFat, double gramOfProtein, double caloriesBurned, int caloriesCunsumption) {
@@ -30,6 +30,7 @@ public class User implements Serializable {
         this.caloriesBurned = caloriesBurned;
         this.caloriesCunsumption = caloriesCunsumption;
         this.meals = new ArrayList<>();
+        this.readyMeals = new ArrayList<>();
     }
 
     public String getFirstName() {
@@ -129,5 +130,43 @@ public class User implements Serializable {
     public User setMeals(ArrayList<Meal> meals) {
         this.meals = meals;
         return this;
+    }
+
+    public ArrayList<ReadyMeal> getReadyMeals() {
+        return readyMeals;
+    }
+
+    public User setReadyMeals(ArrayList<ReadyMeal> readyMeals) {
+        this.readyMeals = readyMeals;
+        return this;
+    }
+
+    public User setWeight(double weight) {
+        this.weight = weight;
+        return this;
+    }
+
+    public void updateMealsForReadyMeal(ReadyMeal updatedReadyMeal) {
+        for (Meal meal : meals) {
+            if (updatedReadyMeal.getId().equals(meal.getReadyMealId())) {
+                // עדכון ההבדלים
+                double calorieDifference = updatedReadyMeal.getCalories() - meal.getCalories();
+                double proteinDifference = updatedReadyMeal.getProteinInGrams() - meal.getProtein();
+                double carbsDifference = updatedReadyMeal.getCarbsInGrams() - meal.getCarbs();
+                double fatDifference = updatedReadyMeal.getFatInGrams() - meal.getFat();
+
+                // עדכון ערכי הארוחה אצל המשתמש
+                meal.setCalories(updatedReadyMeal.getCalories());
+                meal.setProtein(updatedReadyMeal.getProteinInGrams());
+                meal.setCarbs(updatedReadyMeal.getCarbsInGrams());
+                meal.setFat(updatedReadyMeal.getFatInGrams());
+
+                // עדכון הסיכום הכולל אצל המשתמש
+                this.caloriesCunsumption += calorieDifference;
+                this.gramOfProtein += proteinDifference;
+                this.gramOfCarbs += carbsDifference;
+                this.gramOfFat += fatDifference;
+            }
+        }
     }
 }

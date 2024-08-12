@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.calorific2.Manegment.FoodItem;
 import com.example.calorific2.Manegment.Meal;
+import com.example.calorific2.Manegment.MyApplication;
 import com.example.calorific2.Manegment.User;
 
 public class QuantitySelectionActivity extends BaseActivity {
@@ -23,14 +24,17 @@ public class QuantitySelectionActivity extends BaseActivity {
     private FoodItem selectedFoodItem;
     private User user;
 
+    private MyApplication app;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentLayout(R.layout.activity_quantity_selection);
         findQuantitySelectionViews();
 
+        this.app = (MyApplication) getApplicationContext();
+        this.user = app.getUser();
         this.selectedFoodItem = (FoodItem) getIntent().getSerializableExtra("selected_food_item");
-        this.user = (User) getIntent().getSerializableExtra("user");
 
         if (selectedFoodItem != null) {
             Log.d("Selected Item", "Item: " + selectedFoodItem.getLabel());
@@ -87,7 +91,6 @@ public class QuantitySelectionActivity extends BaseActivity {
             user.setGramOfCarbs(user.getGramOfCarbs() + foodFatPerOneGram * quantity);
 
             Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("user", user);
             startActivity(intent);
             finish();
         }

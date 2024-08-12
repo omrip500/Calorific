@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
+import com.example.calorific2.Manegment.MyApplication;
 import com.example.calorific2.Manegment.User;
 
 import java.util.Objects;
@@ -12,6 +13,8 @@ import java.util.Objects;
 public class ProfileActivity extends BaseActivity {
 
     private User user;
+
+    private MyApplication app;
 
     private com.google.android.material.textfield.TextInputEditText et_first_name;
     private com.google.android.material.textfield.TextInputEditText et_last_name;
@@ -25,7 +28,8 @@ public class ProfileActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentLayout(R.layout.activity_profile);
-        this.user = (User) getIntent().getSerializableExtra("user");
+        this.app = (MyApplication) getApplicationContext();
+        this.user = app.getUser();
         findProfileActivityViews();
         initViews();
     }
@@ -52,7 +56,6 @@ public class ProfileActivity extends BaseActivity {
         user.setCaloriesAmountPerDay(Integer.parseInt(Objects.requireNonNull(et_calorie_goal.getText()).toString()));
 
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("user", user);
         startActivity(intent);
         finish();
     }

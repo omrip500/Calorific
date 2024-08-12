@@ -3,11 +3,21 @@ package com.example.calorific2.Manegment;
 import java.io.Serializable;
 
 public class Meal implements Serializable {
+    private String readyMealId; // מזהה של הארוחה המוכנה, אם הארוחה נוצרה מ-ReadyMeal
     private String name;
     private double calories;
     private double protein;
     private double fat;
     private double carbs;
+
+    public Meal(String readyMealId, String name, double calories, double protein, double fat, double carbs) {
+        this.readyMealId = readyMealId;
+        this.name = name;
+        this.calories = calories;
+        this.protein = protein;
+        this.fat = fat;
+        this.carbs = carbs;
+    }
 
     public Meal(String name, double calories, double protein, double fat, double carbs) {
         this.name = name;
@@ -18,6 +28,15 @@ public class Meal implements Serializable {
     }
 
     // Getters and setters for each field
+
+    public String getReadyMealId() {
+        return readyMealId;
+    }
+
+    public void setReadyMealId(String readyMealId) {
+        this.readyMealId = readyMealId;
+    }
+
     public String getName() {
         return name;
     }
@@ -30,7 +49,7 @@ public class Meal implements Serializable {
         return calories;
     }
 
-    public void setCalories(int calories) {
+    public void setCalories(double calories) {
         this.calories = calories;
     }
 
@@ -38,7 +57,7 @@ public class Meal implements Serializable {
         return protein;
     }
 
-    public void setProtein(int protein) {
+    public void setProtein(double protein) {
         this.protein = protein;
     }
 
@@ -46,7 +65,7 @@ public class Meal implements Serializable {
         return fat;
     }
 
-    public void setFat(int fat) {
+    public void setFat(double fat) {
         this.fat = fat;
     }
 
@@ -54,7 +73,7 @@ public class Meal implements Serializable {
         return carbs;
     }
 
-    public void setCarbs(int carbs) {
+    public void setCarbs(double carbs) {
         this.carbs = carbs;
     }
 }

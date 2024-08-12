@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.calorific2.Manegment.MyApplication;
+import com.example.calorific2.Manegment.User;
 import com.google.android.material.navigation.NavigationView;
 
 public abstract class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -22,6 +24,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     private androidx.appcompat.widget.Toolbar toolbar;
     private NavigationView navigationView;
 
+    private User user;
+    private MyApplication app;
+
 
 
 
@@ -29,6 +34,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+
+        this.app = (MyApplication) getApplicationContext();
+        this.user = app.getUser();
 
         findViews();
         navigationView.setNavigationItemSelectedListener(this);
@@ -72,7 +80,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
-        Class currentActivity = this.getClass();
+        Class<? extends BaseActivity> currentActivity = this.getClass();
 
         if (id == R.id.nav_home && currentActivity != MainActivity.class) {
             Intent homeIntent = new Intent(this, MainActivity.class);
@@ -80,8 +88,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         } else if (id == R.id.nav_meal && currentActivity != AddFoodActivity.class) {
             Intent addFoodIntent = new Intent(this, AddFoodActivity.class);
             startActivity(addFoodIntent);
-        } else if (id == R.id.nav_ready_meals && currentActivity != AddFromPreparedMealsActivity.class) {
-            Intent readyMealsIntent = new Intent(this, AddFromPreparedMealsActivity.class);
+        } else if (id == R.id.nav_ready_meals && currentActivity != ReadyMealsActivity.class) {
+            Intent readyMealsIntent = new Intent(this, ReadyMealsActivity.class);
             startActivity(readyMealsIntent);
         } else if (id == R.id.nav_exercise && currentActivity != AddExerciseActivity.class) {
             Intent addExerciseIntent = new Intent(this, AddExerciseActivity.class);

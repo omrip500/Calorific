@@ -18,6 +18,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.calorific2.Adapters.MyAdapter;
 import com.example.calorific2.Manegment.FoodItem;
+import com.example.calorific2.Manegment.MyApplication;
 import com.example.calorific2.Manegment.User;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -35,13 +36,15 @@ public class AddFoodActivity extends BaseActivity {
     private MyAdapter adapter;
     private List<JSONObject> jsonResultsList = new ArrayList<>();
     private User user;
+    private MyApplication app;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentLayout(R.layout.activity_add_food);
-        this.user = (User) getIntent().getSerializableExtra("user");
+        this.app = (MyApplication) getApplicationContext();
+        this.user = app.getUser();
         findAddFoodViews();
         initViews();
         setupRecyclerView();
@@ -127,7 +130,7 @@ public class AddFoodActivity extends BaseActivity {
     }
 
     private void moveToAddANewMealActivity() {
-        Intent addANewMealIntent = new Intent(this, AddFromPreparedMealsActivity.class);
+        Intent addANewMealIntent = new Intent(this, ReadyMealsActivity.class);
         startActivity(addANewMealIntent);
     }
 

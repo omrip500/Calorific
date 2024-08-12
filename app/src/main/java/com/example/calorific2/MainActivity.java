@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
+import com.example.calorific2.Manegment.MyApplication;
 import com.example.calorific2.Manegment.User;
 
 public class MainActivity extends BaseActivity {
-
 
     private User user;
 
@@ -23,6 +23,7 @@ public class MainActivity extends BaseActivity {
     private com.google.android.material.textview.MaterialTextView tv_protein;
     private com.google.android.material.textview.MaterialTextView tv_burned;
     private com.google.android.material.textview.MaterialTextView tv_calorie_info;
+    private MyApplication app;
 
 
     @Override
@@ -30,11 +31,8 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentLayout(R.layout.activity_main);
 
-        this.user = (User) getIntent().getSerializableExtra("user");
-
-        if(user == null)
-            user = new User("Omri", "Peer", 23, 70,
-                2000, 0, 0, 0, 0, 0);
+        this.app = (MyApplication) getApplicationContext();
+        this.user = app.getUser();
 
 
         // Find and initialize views
@@ -65,7 +63,6 @@ public class MainActivity extends BaseActivity {
 
     private void moveToAddFoodActivity() {
         Intent addFoodIntent = new Intent(this, AddFoodActivity.class);
-        addFoodIntent.putExtra("user", user);
         startActivity(addFoodIntent);
     }
 
@@ -75,7 +72,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void moveToReadyMealsActivity() {
-        Intent readyMealsIntent = new Intent(this, AddFromPreparedMealsActivity.class);
+        Intent readyMealsIntent = new Intent(this, ReadyMealsActivity.class);
         startActivity(readyMealsIntent);
     }
 
@@ -86,7 +83,6 @@ public class MainActivity extends BaseActivity {
 
     private void moveToUpdateUserDataActivity() {
         Intent addFoodIntent = new Intent(this, ProfileActivity.class);
-        addFoodIntent.putExtra("user", user);
         startActivity(addFoodIntent);
     }
 
