@@ -78,7 +78,7 @@ public class ReadyMealsActivity extends BaseActivity {
     }
 
     private void addMealToUser(ReadyMeal readyMeal) {
-        Meal meal = new Meal(readyMeal.getName(), readyMeal.getCalories(), readyMeal.getProteinInGrams(),
+        Meal meal = new Meal(readyMeal.getId(), readyMeal.getName(), readyMeal.getCalories(), readyMeal.getProteinInGrams(),
                 readyMeal.getCarbsInGrams(), readyMeal.getFatInGrams());
 
         user.getMeals().add(meal);

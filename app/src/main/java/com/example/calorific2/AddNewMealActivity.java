@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.calorific2.Manegment.Meal;
 import com.example.calorific2.Manegment.MyApplication;
 import com.example.calorific2.Manegment.ReadyMeal;
 import com.example.calorific2.Manegment.User;
@@ -84,11 +85,16 @@ public class AddNewMealActivity extends BaseActivity {
                     user.getReadyMeals().set(index, meal);
                 }
 
-                // עדכון הערכים אצל המשתמש
-                user.setCaloriesCunsumption(user.getCaloriesCunsumption() - oldCalories + calories);
-                user.setGramOfProtein(user.getGramOfProtein() - oldProtein + protein);
-                user.setGramOfCarbs(user.getGramOfCarbs() - oldCarbs + carbs);
-                user.setGramOfFat(user.getGramOfFat() - oldFats + fats);
+                // בדיקת כל ה-meals של המשתמש ועדכון הערכים התזונתיים בהתאם
+                for (Meal userMeal : user.getMeals()) {
+                    if (userMeal.getReadyMealId().equals(meal.getId())) {
+                        // עדכון הערכים התזונתיים אצל המשתמש
+                        user.setCaloriesCunsumption(user.getCaloriesCunsumption() - oldCalories + calories);
+                        user.setGramOfProtein(user.getGramOfProtein() - oldProtein + protein);
+                        user.setGramOfCarbs(user.getGramOfCarbs() - oldCarbs + carbs);
+                        user.setGramOfFat(user.getGramOfFat() - oldFats + fats);
+                    }
+                }
             }
 
             Toast.makeText(AddNewMealActivity.this, "Meal saved: " + meal.getName(), Toast.LENGTH_SHORT).show();
@@ -98,6 +104,7 @@ public class AddNewMealActivity extends BaseActivity {
             finish(); // סיום הפעילות כדי לוודא שהיא לא נשארת ברקע
         });
     }
+
 
     private void populateFieldsWithMealData(ReadyMeal meal) {
         mealNameInput.setText(meal.getName());
