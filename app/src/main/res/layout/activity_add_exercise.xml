@@ -1,97 +1,93 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#8bc34a"
-    tools:context=".AddExerciseActivity">
+    tools:context=".AddExerciseActivity"
+    android:fitsSystemWindows="true">
 
-    <LinearLayout
+    <!-- Main content area -->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="match_parent"
+        android:background="@color/light_gray"> <!-- רקע בהיר ונייטרלי -->
+
+        <!-- Toolbar -->
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar"
+            android:background="@color/green" />
 
         <!-- Header with title -->
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_add_exercise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="96dp"
             android:text="Add New Exercise"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#FFFFFF"
-            android:layout_gravity="center"
-            android:layout_marginTop="70dp"/>
+            android:textColor="@color/dark_gray" /> <!-- טקסט בצבע אפור כהה -->
 
-        <!-- Dropdown for selecting exercise type -->
-        <com.google.android.material.textfield.TextInputLayout
+        <!-- Layout for form inputs -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tv_add_exercise"
             android:layout_marginTop="32dp"
-            android:hint="Select Exercise">
+            android:padding="16dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
 
-            <AutoCompleteTextView
-                android:id="@+id/actv_exercise_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Input for exercise duration (minutes) -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="Duration (minutes)">
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Display for calories burned -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="Calories Burned">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_calories_burned"
+            <!-- Dropdown for selecting exercise type -->
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none"
-                android:enabled="false"
-                android:text="0"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                android:hint="Select Exercise">
 
-        <!-- Button to save the exercise -->
-        <Button
-            android:id="@+id/btn_save_exercise"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Save Exercise"
-            android:textColor="#000000"
-            android:layout_gravity="center"
-            android:layout_marginTop="32dp"/>
+                <AutoCompleteTextView
+                    android:id="@+id/actv_exercise_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Instructional text -->
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_instruction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="After selecting an exercise and entering the duration, the calories burned will be calculated automatically based on your profile data."
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#FFFFFF"
-            android:layout_gravity="center"
-            android:layout_marginTop="24dp"
-            android:textAlignment="center"/>
+            <!-- Input for exercise duration (minutes) -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Duration (minutes)">
 
-        <!-- Image to fill space -->
-        <ImageView
-            android:id="@+id/iv_exercise_image"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="24dp"
-            android:contentDescription="Exercise Icon"
-            android:scaleType="centerInside" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
-</ScrollView>
+            <!-- Display for calories burned -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Calories Burned">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_calories_burned"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:enabled="false"
+                    android:text="0"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Button to save the exercise -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_save_exercise"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:text="Save Exercise"
+                android:textColor="@color/black"
+                android:layout_marginTop="32dp"
+                android:backgroundTint="@color/green"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

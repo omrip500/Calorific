@@ -1,5 +1,6 @@
 package com.example.calorific2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +10,7 @@ import com.example.calorific2.Manegment.Exercise;
 import com.example.calorific2.Manegment.Meal;
 import com.example.calorific2.Manegment.MyApplication;
 import com.example.calorific2.Manegment.User;
+import com.example.calorific2.Utils.FirestoreUtils;
 import com.google.android.material.textview.MaterialTextView;
 
 public class ViewDaySummaryActivity extends BaseActivity {
@@ -138,6 +140,14 @@ public class ViewDaySummaryActivity extends BaseActivity {
             user.setGramOfProtein(0);
             user.setGramOfFat(0);
         }
+        FirestoreUtils.saveUserToFirestore(user, app).addOnSuccessListener(aVoid -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }).addOnFailureListener(e -> {
+            // טיפול בכשלון השמירה - תוכל להציג הודעה למשתמש או לנסות שוב
+            e.printStackTrace();
+        });
 
         // Update the UI
         updateNutritionalSummary();
@@ -163,6 +173,7 @@ public class ViewDaySummaryActivity extends BaseActivity {
             user.setCaloriesBurned(0);
         }
 
+        FirestoreUtils.saveUserToFirestore(user, app);
         // Update the UI for calories burned
         updateCaloriesBurned();
         populateExercisesList(); // Refresh the list

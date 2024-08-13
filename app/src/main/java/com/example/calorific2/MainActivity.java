@@ -10,12 +10,14 @@ import androidx.activity.result.ActivityResultLauncher;
 
 import com.example.calorific2.Manegment.MyApplication;
 import com.example.calorific2.Manegment.User;
+import com.example.calorific2.Utils.FirestoreUtils;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
 import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Arrays;
 import java.util.List;
@@ -154,4 +156,27 @@ public class MainActivity extends BaseActivity {
         tv_protein = findViewById(R.id.tv_protein);
         tv_calorie_info = findViewById(R.id.tv_calorie_info);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        FirebaseFirestore.getInstance()
+                .collection("users")
+                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    FirestoreUtils.loadUserData(documentSnapshot, app);
+                    user = app.getUser();
+                    if (user != null) {
+                        initViews();
+                    } else {
+                        moveToUpdateUserDataActivity();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    e.printStackTrace();
+                });
+    }
+
+
 }

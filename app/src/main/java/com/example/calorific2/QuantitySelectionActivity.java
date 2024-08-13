@@ -14,6 +14,7 @@ import com.example.calorific2.Manegment.FoodItem;
 import com.example.calorific2.Manegment.Meal;
 import com.example.calorific2.Manegment.MyApplication;
 import com.example.calorific2.Manegment.User;
+import com.example.calorific2.Utils.FirestoreUtils;
 
 public class QuantitySelectionActivity extends BaseActivity {
 
@@ -94,6 +95,15 @@ public class QuantitySelectionActivity extends BaseActivity {
             user.setGramOfProtein(user.getGramOfProtein() + mealProtein);
             user.setGramOfFat(user.getGramOfFat() + mealFat);
             user.setGramOfCarbs(user.getGramOfCarbs() + mealCarbs);
+
+            FirestoreUtils.saveUserToFirestore(user, app).addOnSuccessListener(aVoid -> {
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }).addOnFailureListener(e -> {
+                // טיפול בכשלון השמירה - תוכל להציג הודעה למשתמש או לנסות שוב
+                e.printStackTrace();
+            });
 
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);

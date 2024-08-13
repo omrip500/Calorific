@@ -42,6 +42,10 @@ public class Meal implements Serializable {
         this.quantity = quantity;
     }
 
+    public Meal() {
+
+    }
+
     // Getters and setters for each field
 
 

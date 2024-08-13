@@ -11,6 +11,10 @@ public class Exercise implements Serializable {
         this.caloriesBurned = caloriesBurned;
     }
 
+    public Exercise() {
+        
+    }
+
     public String getName() {
         return name;
     }

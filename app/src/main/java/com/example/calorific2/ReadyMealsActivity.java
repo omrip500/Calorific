@@ -11,6 +11,7 @@ import com.example.calorific2.Manegment.Meal;
 import com.example.calorific2.Manegment.MyApplication;
 import com.example.calorific2.Manegment.ReadyMeal;
 import com.example.calorific2.Manegment.User;
+import com.example.calorific2.Utils.FirestoreUtils;
 
 import java.util.ArrayList;
 
@@ -87,6 +88,14 @@ public class ReadyMealsActivity extends BaseActivity {
         user.setGramOfProtein(user.getGramOfProtein() + readyMeal.getProteinInGrams());
         user.setCaloriesCunsumption(user.getCaloriesCunsumption() + readyMeal.getCalories());
 
+        FirestoreUtils.saveUserToFirestore(user, app).addOnSuccessListener(aVoid -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }).addOnFailureListener(e -> {
+            // טיפול בכשלון השמירה - תוכל להציג הודעה למשתמש או לנסות שוב
+            e.printStackTrace();
+        });
         Toast.makeText(this, "Meal added: " + readyMeal.getName(), Toast.LENGTH_SHORT).show();
     }
 

@@ -8,7 +8,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.calorific2.Manegment.MyApplication;
-import com.example.calorific2.Manegment.User;
+import com.example.calorific2.Utils.FirestoreUtils;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
 import com.firebase.ui.auth.IdpResponse;
@@ -48,29 +48,14 @@ public class LoginActivity extends AppCompatActivity {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
-                    // המשתמש קיים ב-Firestore, טוען את הנתונים שלו
-                    loadUserData(document);
+                    FirestoreUtils.loadUserData(document, app);
                     transactToMainActivity();
                 } else {
-                    // המשתמש לא קיים ב-Firestore, נפנה ל-ProfileActivity
                     transactToProfileActivity();
                 }
             } else {
-                // טיפול בשגיאות קריאה מהמסד הנתונים
-                // תוכל להוסיף כאן התראה למשתמש או טיפול אחר במצב זה
             }
         });
-    }
-
-    private void loadUserData(DocumentSnapshot document) {
-        // יצירת אובייקט User על בסיס הנתונים ממסד הנתונים
-        User user = document.toObject(User.class);
-
-        // עדכון ה-User באפליקציה
-        app.setUser(user);
-
-        // מעבר ל-MainActivity
-        transactToMainActivity();
     }
 
     private void transactToMainActivity() {

@@ -22,6 +22,10 @@ public class ReadyMeal implements Serializable {
         this.fatInGrams = fatInGrams;
     }
 
+    public ReadyMeal() {
+
+    }
+
     // Getters and Setters...
 
     public String getName() {

@@ -11,6 +11,7 @@ import com.example.calorific2.Manegment.Exercise;
 import com.example.calorific2.Manegment.MyApplication;
 import com.example.calorific2.Manegment.User;
 import com.example.calorific2.Utils.CsvUtil;
+import com.example.calorific2.Utils.FirestoreUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +79,15 @@ public class AddExerciseActivity extends BaseActivity {
                 Exercise exercise = new Exercise(exerciseName, caloriesBurned);
 
                 user.addExercise(exercise);
+
+                FirestoreUtils.saveUserToFirestore(user, app).addOnSuccessListener(aVoid -> {
+                    Intent intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }).addOnFailureListener(e -> {
+                    // טיפול בכשלון השמירה - תוכל להציג הודעה למשתמש או לנסות שוב
+                    e.printStackTrace();
+                });
             }
 
             Intent intent = new Intent(this, MainActivity.class);

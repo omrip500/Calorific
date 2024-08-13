@@ -6,6 +6,7 @@ import android.widget.Button;
 
 import com.example.calorific2.Manegment.MyApplication;
 import com.example.calorific2.Manegment.User;
+import com.example.calorific2.Utils.FirestoreUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -43,22 +44,6 @@ public class ProfileActivity extends BaseActivity {
         et_calorie_goal.setText(user == null ? String.valueOf(0) : String.valueOf(user.getCaloriesAmountPerDay()));
     }
 
-    private void saveUserToFirestore() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        db.collection("users").document(userId)
-                .set(user)
-                .addOnSuccessListener(aVoid -> {
-                    // הצלחה - ביצוע פעולה כלשהי אם יש צורך
-                    app.setUser(user); // עדכון ה-user באפליקציה
-                })
-                .addOnFailureListener(e -> {
-                    // כשלון - טיפול בשגיאה
-                    e.printStackTrace();
-                });
-    }
-
     private void updateUserData() {
 
         if(user == null)
@@ -73,12 +58,17 @@ public class ProfileActivity extends BaseActivity {
 
         user.setCaloriesAmountPerDay(Integer.parseInt(Objects.requireNonNull(et_calorie_goal.getText()).toString()));
 
-        saveUserToFirestore();
-
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        // המתן לסיום פעולת השמירה ב-Firestore לפני המעבר ל-MainActivity
+        FirestoreUtils.saveUserToFirestore(user, app).addOnSuccessListener(aVoid -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }).addOnFailureListener(e -> {
+            // טיפול בכשלון השמירה - תוכל להציג הודעה למשתמש או לנסות שוב
+            e.printStackTrace();
+        });
     }
+
 
 
     private void findProfileActivityViews() {

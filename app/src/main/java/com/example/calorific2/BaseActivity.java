@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.calorific2.Manegment.MyApplication;
 import com.example.calorific2.Manegment.User;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public abstract class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -79,6 +81,12 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        if (user == null || user.getFirstName() == null || user.getLastName() == null || user.getAge() == 0) {
+            showUserDetailsRequiredAlert();
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return false;
+        }
+
         int id = menuItem.getItemId();
         Class<? extends BaseActivity> currentActivity = this.getClass();
 
@@ -100,11 +108,22 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         } else if (id == R.id.nav_profile && currentActivity != ProfileActivity.class) {
             Intent updateUserDataIntent = new Intent(this, ProfileActivity.class);
             startActivity(updateUserDataIntent);
+        } else if (id == R.id.nav_logout) {
+            FirebaseAuth.getInstance().signOut();
+            Intent loginIntent = new Intent(this, LoginActivity.class);
+            loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(loginIntent);
+            finish();
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void showUserDetailsRequiredAlert() {
+        android.widget.Toast.makeText(this, "Please complete your profile details before proceeding.", Toast.LENGTH_LONG).show();
+    }
+
 
 
 

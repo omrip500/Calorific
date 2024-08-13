@@ -9,6 +9,7 @@ import com.example.calorific2.Manegment.Meal;
 import com.example.calorific2.Manegment.MyApplication;
 import com.example.calorific2.Manegment.ReadyMeal;
 import com.example.calorific2.Manegment.User;
+import com.example.calorific2.Utils.FirestoreUtils;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class AddNewMealActivity extends BaseActivity {
@@ -50,7 +51,6 @@ public class AddNewMealActivity extends BaseActivity {
         proteinInput = findViewById(R.id.et_protein);
         carbsInput = findViewById(R.id.et_carbs);
         fatsInput = findViewById(R.id.et_fats);
-        chooseImageButton = findViewById(R.id.btn_choose_image);
         saveMealButton = findViewById(R.id.btn_save_meal);
     }
 
@@ -96,7 +96,14 @@ public class AddNewMealActivity extends BaseActivity {
                     }
                 }
             }
-
+            FirestoreUtils.saveUserToFirestore(user, app).addOnSuccessListener(aVoid -> {
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }).addOnFailureListener(e -> {
+                // טיפול בכשלון השמירה - תוכל להציג הודעה למשתמש או לנסות שוב
+                e.printStackTrace();
+            });
             Toast.makeText(AddNewMealActivity.this, "Meal saved: " + meal.getName(), Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(this, MainActivity.class);
