@@ -36,6 +36,12 @@ public class User implements Serializable {
         this.exercises = new ArrayList<>();
     }
 
+    public User() {
+        this.meals = new ArrayList<>();
+        this.readyMeals = new ArrayList<>();
+        this.exercises = new ArrayList<>();
+    };
+
     public String getFirstName() {
         return firstName;
     }

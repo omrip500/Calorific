@@ -37,7 +37,7 @@ public class ViewDaySummaryActivity extends BaseActivity {
         tvTotalProtein = findViewById(R.id.tv_total_protein);
         tvTotalFat = findViewById(R.id.tv_total_fat);
         tvTotalCalories = findViewById(R.id.tv_total_calories);
-        tvCaloriesBurned = findViewById(R.id.tv_calories_burned); // Assuming you have this view in your layout
+        tvCaloriesBurned = findViewById(R.id.tv_calories_burned);
         llMealsList = findViewById(R.id.ll_meals_list);
         llExercisesList = findViewById(R.id.ll_exercises_list);
     }
@@ -50,14 +50,14 @@ public class ViewDaySummaryActivity extends BaseActivity {
     }
 
     private void updateNutritionalSummary() {
-        tvTotalCarbs.setText("Total Carbohydrates: " + user.getGramOfCarbs() + " g");
-        tvTotalProtein.setText("Total Protein: " + user.getGramOfProtein() + " g");
-        tvTotalFat.setText("Total Fat: " + user.getGramOfFat() + " g");
-        tvTotalCalories.setText("Total Calories: " + user.getCaloriesCunsumption() + " kcal");
+        tvTotalCarbs.setText("Total Carbohydrates: " + (int) user.getGramOfCarbs() + " g");
+        tvTotalProtein.setText("Total Protein: " + (int) user.getGramOfProtein() + " g");
+        tvTotalFat.setText("Total Fat: " + (int) user.getGramOfFat() + " g");
+        tvTotalCalories.setText("Total Calories: " + (int) user.getCaloriesCunsumption() + " kcal");
     }
 
     private void updateCaloriesBurned() {
-        tvCaloriesBurned.setText("Calories Burned: " + user.getCaloriesBurned() + " kcal");
+        tvCaloriesBurned.setText("Calories Burned: " + (int) user.getCaloriesBurned() + " kcal");
     }
 
     private void populateMealsList() {
@@ -66,9 +66,17 @@ public class ViewDaySummaryActivity extends BaseActivity {
         for (Meal meal : user.getMeals()) {
             View mealView = getLayoutInflater().inflate(R.layout.meal_item, null);
             MaterialTextView mealName = mealView.findViewById(R.id.tv_meal_name);
+            MaterialTextView mealCalories = mealView.findViewById(R.id.tv_meal_calories);
+            MaterialTextView mealProtein = mealView.findViewById(R.id.tv_meal_protein);
+            MaterialTextView mealCarbs = mealView.findViewById(R.id.tv_meal_carbs);
+            MaterialTextView mealFat = mealView.findViewById(R.id.tv_meal_fat);
             Button btnRemoveMeal = mealView.findViewById(R.id.btn_remove_meal);
 
             mealName.setText(meal.getName());
+            mealCalories.setText("Calories: " + (int) meal.getCalories() + " kcal");
+            mealProtein.setText("Protein: " + (int) meal.getProtein() + " g");
+            mealCarbs.setText("Carbohydrates: " + (int) meal.getCarbs() + " g");
+            mealFat.setText("Fat: " + (int) meal.getFat() + " g");
 
             btnRemoveMeal.setOnClickListener(v -> {
                 user.getMeals().remove(meal);
@@ -85,9 +93,11 @@ public class ViewDaySummaryActivity extends BaseActivity {
         for (Exercise exercise : user.getExercises()) {
             View exerciseView = getLayoutInflater().inflate(R.layout.exercise_item, null);
             MaterialTextView exerciseName = exerciseView.findViewById(R.id.tv_exercise_name);
+            MaterialTextView exerciseCalories = exerciseView.findViewById(R.id.tv_exercise_calories);
             Button btnRemoveExercise = exerciseView.findViewById(R.id.btn_remove_exercise);
 
             exerciseName.setText(exercise.getName());
+            exerciseCalories.setText("Calories Burned: " + (int) exercise.getCaloriesBurned() + " kcal");
 
             btnRemoveExercise.setOnClickListener(v -> {
                 user.getExercises().remove(exercise);
@@ -133,7 +143,6 @@ public class ViewDaySummaryActivity extends BaseActivity {
         updateNutritionalSummary();
         populateMealsList(); // Refresh the list
     }
-
 
     private void updateUserAfterExerciseRemoval(Exercise exercise) {
         // Remove the exercise from the user's list of exercises

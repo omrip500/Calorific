@@ -20,4 +20,6 @@
     <string name="carbs_n55_g">carbs:\n55 g</string>
     <string name="_1250_1700_calories_nremaining_450">1250 / 1700 calories\nRemaining: 450</string>
     <string name="good_morning_yotam">Good morning Yotam!</string>
+    <string name="facebook_application_id" translatable="false">YOUR_APP_ID</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fbYOUR_APP_ID</string>
 </resources>

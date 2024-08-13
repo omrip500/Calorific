@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "810294986764",
+    "project_id": "calorific-f4d6e",
+    "storage_bucket": "calorific-f4d6e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:810294986764:android:94ec19793e3be35a42c629",
+        "android_client_info": {
+          "package_name": "com.example.calorific2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "810294986764-8nc2sa239khgpe4rkn25fqt5fqsf68e5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.calorific2",
+            "certificate_hash": "8d0d9cd46d73fa72b489280eaf6a8d8fa624bbe0"
+          }
+        },
+        {
+          "client_id": "810294986764-f9nacdv1c2ivb5tpvfbcvth382l0b1m9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8Ca08Uwtl7RTGfAIWKs5Y7FmsQgoajeY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "810294986764-f9nacdv1c2ivb5tpvfbcvth382l0b1m9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

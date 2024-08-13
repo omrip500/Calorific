@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 public class CsvUtil {
@@ -26,8 +25,8 @@ public class CsvUtil {
             String[] columns;
 
             while ((columns = reader.readNext()) != null) {
-                String exerciseName = columns[0]; // קריאת שם הפעילות
-                String caloriesStr = columns[5]; // קריאת ערך הקלוריות לעמודה המתאימה
+                String exerciseName = columns[0];
+                String caloriesStr = columns[5];
 
                 if (caloriesStr != null && !caloriesStr.trim().isEmpty()) {
                     try {

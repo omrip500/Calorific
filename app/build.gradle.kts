@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.androidApplication)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -41,4 +42,20 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation (libs.firebase.ui.auth)
+
+    // Required only if Facebook login support is required
+    // Find the latest Facebook SDK releases here: https://goo.gl/Ce5L94
+    //implementation (libs.facebook.android.sdk)
+    //implementation(libs.firebase.bom)
+    //noinspection UseTomlInstead
+    implementation("com.google.firebase:firebase-auth")
+
+    // Import the Firebase BoM
+    implementation(libs.firebase.bom)
+    //noinspection UseTomlInstead
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.firebaseui:firebase-ui-auth:7.2.0")
+    implementation (libs.firebase.firestore)
+
 }

@@ -70,11 +70,13 @@ public class AddExerciseActivity extends BaseActivity {
                 double caloriesPerKgPerMin = exerciseData.get(exerciseName);
                 double caloriesBurned = caloriesPerKgPerMin * weight;
 
-                etCaloriesBurned.setText(String.valueOf(caloriesBurned));
+                int caloriesBurnedInt = (int) caloriesBurned;
+                etCaloriesBurned.setText(String.valueOf(caloriesBurnedInt));
 
                 user.setCaloriesBurned(user.getCaloriesBurned() + caloriesBurned);
 
                 Exercise exercise = new Exercise(exerciseName, caloriesBurned);
+
                 user.addExercise(exercise);
             }
 

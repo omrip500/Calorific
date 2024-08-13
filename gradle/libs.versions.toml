@@ -1,5 +1,10 @@
 [versions]
 agp = "8.3.2"
+facebookAndroidSdk = "8.x"
+firebaseBom = "33.1.2"
+firebaseFirestore = "25.0.0"
+firebaseUiAuth = "7.2.0"
+firebaseUiAuthVersion = "8.0.0"
 glide = "4.15.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -13,6 +18,11 @@ volley = "1.2.1"
 
 [libraries]
 compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
+facebook-android-sdk = { module = "com.facebook.android:facebook-android-sdk", version.ref = "facebookAndroidSdk" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-firestore = { module = "com.google.firebase:firebase-firestore", version.ref = "firebaseFirestore" }
+firebase-ui-auth = { module = "com.firebaseui:firebase-ui-auth", version.ref = "firebaseUiAuth" }
+firebase-ui-auth-v800 = { module = "com.firebaseui:firebase-ui-auth", version.ref = "firebaseUiAuthVersion" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
