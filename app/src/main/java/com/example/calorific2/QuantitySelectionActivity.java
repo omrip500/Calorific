@@ -75,9 +75,6 @@ public class QuantitySelectionActivity extends BaseActivity {
         } else {
             Toast.makeText(this, selectedFood + " added with quantity " + quantityString, Toast.LENGTH_SHORT).show();
 
-            user.getMeals().add(new Meal(selectedFoodItem.getLabel(), selectedFoodItem.getCalories(), selectedFoodItem.getProtein(), selectedFoodItem.getFat()
-            , selectedFoodItem.getCarbs()));
-
             double quantity = Double.parseDouble(quantityString);
 
             double foodCaloriesPerOneGram = selectedFoodItem.getCalories() / 100;
@@ -85,10 +82,18 @@ public class QuantitySelectionActivity extends BaseActivity {
             double foodCarbsPerOneGram = selectedFoodItem.getCarbs() / 100;
             double foodFatPerOneGram = selectedFoodItem.getFat() / 100;
 
-            user.setCaloriesCunsumption(user.getCaloriesCunsumption() + foodCaloriesPerOneGram * quantity);
-            user.setGramOfProtein(user.getGramOfProtein() + foodProteinPerOneGram * quantity);
-            user.setGramOfFat(user.getGramOfFat() + foodCarbsPerOneGram * quantity);
-            user.setGramOfCarbs(user.getGramOfCarbs() + foodFatPerOneGram * quantity);
+            double mealCalories = foodCaloriesPerOneGram * quantity;
+            double mealProtein = foodProteinPerOneGram * quantity;
+            double mealFat = foodFatPerOneGram * quantity;
+            double mealCarbs = foodCarbsPerOneGram * quantity;
+
+            user.getMeals().add(new Meal(selectedFoodItem.getLabel(), mealCalories, mealProtein, mealFat
+                    , mealCarbs, quantity));
+
+            user.setCaloriesCunsumption(user.getCaloriesCunsumption() + mealCalories);
+            user.setGramOfProtein(user.getGramOfProtein() + mealProtein);
+            user.setGramOfFat(user.getGramOfFat() + mealFat);
+            user.setGramOfCarbs(user.getGramOfCarbs() + mealCarbs);
 
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);

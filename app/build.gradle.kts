@@ -36,6 +36,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.volley)
     implementation (libs.glide)
+    implementation (libs.opencsv)
     annotationProcessor (libs.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

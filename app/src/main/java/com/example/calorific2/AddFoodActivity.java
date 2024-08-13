@@ -2,6 +2,7 @@ package com.example.calorific2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -38,6 +39,10 @@ public class AddFoodActivity extends BaseActivity {
     private User user;
     private MyApplication app;
 
+    private static final long TYPING_DELAY = 500; // דיליי של חצי שנייה
+    private Handler typingHandler = new Handler();
+    private Runnable sendRequestRunnable = () -> sendHttpRequest(search_food.getText().toString().trim());
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +63,14 @@ public class AddFoodActivity extends BaseActivity {
             public void onResponse(JSONObject response) {
                 try {
                     jsonResultsList.clear();
+                    adapter.updateData(new ArrayList<>()); // ריקון התוצאות הנוכחיות מה-RecyclerView
 
                     if (response.has("hints")) {
                         for (int i = 0; i < response.getJSONArray("hints").length(); i++) {
                             JSONObject foodItemJson = response.getJSONArray("hints").getJSONObject(i).getJSONObject("food");
-                            jsonResultsList.add(foodItemJson);
+                            if (foodItemJson.has("image") && !foodItemJson.getString("image").isEmpty()) {
+                                jsonResultsList.add(foodItemJson);
+                            }
                         }
                     } else {
                         JSONObject noResult = new JSONObject();
@@ -105,9 +113,9 @@ public class AddFoodActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                typingHandler.removeCallbacks(sendRequestRunnable);
                 if (!s.toString().isEmpty()) {
-                    // שליחת בקשת HTTP כאשר המשתמש מתחיל להקליד
-                    sendHttpRequest(s.toString());
+                    typingHandler.postDelayed(sendRequestRunnable, TYPING_DELAY);
                 } else {
                     rv_food_results.setVisibility(View.GONE); // הסתרת ה-RecyclerView אם השדה ריק
                 }
@@ -143,6 +151,9 @@ public class AddFoodActivity extends BaseActivity {
             double carbs = foodItemJson.getJSONObject("nutrients").getDouble("CHOCDF");
             String imageUrl = foodItemJson.getString("image");
 
+            Log.d("FoodItem", "Label: " + label + ", Calories: " + calories + ", Protein: " + protein + ", Fat: " + fat + ", Carbs: " + carbs);
+
+
             FoodItem foodItem = new FoodItem(label, calories, protein, fat, carbs, imageUrl);
             Intent intent = new Intent(this, QuantitySelectionActivity.class);
             intent.putExtra("selected_food_item", foodItem);
@@ -150,6 +161,7 @@ public class AddFoodActivity extends BaseActivity {
             startActivity(intent);
         } catch (JSONException e) {
             e.printStackTrace();
+            Log.e("HandleItemClick", "Error processing food item JSON: " + e.getMessage());
         }
     }
 }

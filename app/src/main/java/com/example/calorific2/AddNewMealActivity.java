@@ -87,7 +87,7 @@ public class AddNewMealActivity extends BaseActivity {
 
                 // בדיקת כל ה-meals של המשתמש ועדכון הערכים התזונתיים בהתאם
                 for (Meal userMeal : user.getMeals()) {
-                    if (userMeal.getReadyMealId().equals(meal.getId())) {
+                    if (userMeal.getReadyMealId() != null && userMeal.getReadyMealId().equals(meal.getId())) {
                         // עדכון הערכים התזונתיים אצל המשתמש
                         user.setCaloriesCunsumption(user.getCaloriesCunsumption() - oldCalories + calories);
                         user.setGramOfProtein(user.getGramOfProtein() - oldProtein + protein);

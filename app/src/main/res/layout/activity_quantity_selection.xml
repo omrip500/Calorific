@@ -32,7 +32,7 @@
         android:id="@+id/et_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Enter Quantity"
+        android:hint="Enter Quantity (grams)"
         android:inputType="number"
         android:layout_below="@id/iv_food_image"
         android:layout_centerHorizontal="true"

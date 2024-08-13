@@ -9,7 +9,20 @@ public class Meal implements Serializable {
     private double protein;
     private double fat;
     private double carbs;
+    private double quantity;
 
+    // with quantity - for adding from api
+    public Meal(String readyMealId, String name, double calories, double protein, double fat, double carbs, double quantity) {
+        this.readyMealId = readyMealId;
+        this.name = name;
+        this.calories = calories;
+        this.protein = protein;
+        this.fat = fat;
+        this.carbs = carbs;
+        this.quantity = quantity;
+    }
+
+    // with no quantity - for adding from ready meals
     public Meal(String readyMealId, String name, double calories, double protein, double fat, double carbs) {
         this.readyMealId = readyMealId;
         this.name = name;
@@ -17,17 +30,24 @@ public class Meal implements Serializable {
         this.protein = protein;
         this.fat = fat;
         this.carbs = carbs;
+        this.quantity = quantity;
     }
 
-    public Meal(String name, double calories, double protein, double fat, double carbs) {
+    public Meal(String name, double calories, double protein, double fat, double carbs, double quantity) {
         this.name = name;
         this.calories = calories;
         this.protein = protein;
         this.fat = fat;
         this.carbs = carbs;
+        this.quantity = quantity;
     }
 
     // Getters and setters for each field
+
+
+    public double getQuantity() {
+        return quantity;
+    }
 
     public String getReadyMealId() {
         return readyMealId;

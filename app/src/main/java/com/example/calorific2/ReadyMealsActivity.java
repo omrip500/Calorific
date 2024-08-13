@@ -18,7 +18,6 @@ public class ReadyMealsActivity extends BaseActivity {
     private Button btn_add_new_meal;
     private ListView lv_prepared_meals;
     private User user;
-
     private MyApplication app;
 
     @Override

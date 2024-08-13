@@ -1,6 +1,6 @@
 package com.example.calorific2.Adapters;
 
-import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +23,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     public void updateData(List<JSONObject> newItems) {
-        this.items = newItems;
+        this.items.clear(); // ניקוי הנתונים הקודמים כדי לשחרר זיכרון
+        this.items.addAll(newItems);
         notifyDataSetChanged();
     }
 
@@ -31,6 +32,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
+
+        // Adding ripple effect
+        TypedValue outValue = new TypedValue();
+        parent.getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
+        view.setBackgroundResource(outValue.resourceId);
+
         return new ViewHolder(view);
     }
 
@@ -40,7 +47,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             JSONObject item = items.get(position);
             String label = item.getString("label");
             holder.foodItemTextView.setText(label);
-            holder.itemView.setOnClickListener(v -> listener.onItemClick(item));
+
+            holder.itemView.setOnClickListener(v -> {
+                // Adding a scale animation on click
+                v.animate().scaleX(1.05f).scaleY(1.05f).setDuration(100).withEndAction(() -> {
+                    v.animate().scaleX(1f).scaleY(1f).setDuration(100).start();
+                    listener.onItemClick(item);
+                }).start();
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -17,6 +17,8 @@ public class User implements Serializable {
     private ArrayList<Meal> meals;
     private ArrayList<ReadyMeal> readyMeals;
 
+    private ArrayList<Exercise> exercises;
+
     public User(String firstName, String lastName, int age, double weight, int caloriesAmountPerDay,
                 double gramOfCarbs, double gramOfFat, double gramOfProtein, double caloriesBurned, int caloriesCunsumption) {
         this.firstName = firstName;
@@ -31,10 +33,15 @@ public class User implements Serializable {
         this.caloriesCunsumption = caloriesCunsumption;
         this.meals = new ArrayList<>();
         this.readyMeals = new ArrayList<>();
+        this.exercises = new ArrayList<>();
     }
 
     public String getFirstName() {
         return firstName;
+    }
+
+    public ArrayList<Exercise> getExercises() {
+        return exercises;
     }
 
     public double getCaloriesCunsumption() {
@@ -130,6 +137,10 @@ public class User implements Serializable {
     public User setMeals(ArrayList<Meal> meals) {
         this.meals = meals;
         return this;
+    }
+
+    public void addExercise(Exercise exercise) {
+        exercises.add(exercise);
     }
 
     public ArrayList<ReadyMeal> getReadyMeals() {
