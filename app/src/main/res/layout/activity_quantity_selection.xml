@@ -4,7 +4,6 @@
     android:padding="16dp"
     android:background="#f5f5f5">
 
-    <!-- כותרת הפריט שנבחר -->
     <TextView
         android:id="@+id/tv_selected_food"
         android:layout_width="wrap_content"
@@ -16,7 +15,6 @@
         android:layout_marginTop="60dp"
         android:textSize="20sp"/>
 
-    <!-- קונטיינר לתמונה -->
     <ImageView
         android:id="@+id/iv_food_image"
         android:layout_width="150dp"
@@ -25,9 +23,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:scaleType="centerCrop"
-        android:background="#DDDDDD"/> <!-- רקע אפור כדי להציג את המיקום הריק בינתיים -->
+        android:background="#DDDDDD"/>
 
-    <!-- קלט של כמות -->
     <EditText
         android:id="@+id/et_quantity"
         android:layout_width="wrap_content"
@@ -42,7 +39,6 @@
         android:textColor="#000000"
         android:textSize="18sp"/>
 
-    <!-- כפתור להוספה -->
     <Button
         android:id="@+id/btn_add"
         android:layout_width="wrap_content"

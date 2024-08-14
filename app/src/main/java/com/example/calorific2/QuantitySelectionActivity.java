@@ -52,7 +52,7 @@ public class QuantitySelectionActivity extends BaseActivity {
         tv_selected_food = findViewById(R.id.tv_selected_food);
         quantityEditText = findViewById(R.id.et_quantity);
         addButton = findViewById(R.id.btn_add);
-        foodImageView = findViewById(R.id.iv_food_image); // מציאת ה-ImageView מה-XML
+        foodImageView = findViewById(R.id.iv_food_image);
     }
 
     private void initViews() {
@@ -60,8 +60,8 @@ public class QuantitySelectionActivity extends BaseActivity {
 
         Glide.with(this)
                 .load(this.selectedFoodItem.getImageUrl())
-//                .placeholder(R.drawable.placeholder_image) // תמונה שתוצג בזמן הטעינה
-//                .error(R.drawable.error_image) // תמונה שתוצג אם יש בעיה בטעינה
+//                .placeholder(R.drawable.placeholder_image)
+//                .error(R.drawable.error_image)
                 .into(foodImageView);
 
         addButton.setOnClickListener(v -> addFoodToLog());
@@ -101,7 +101,6 @@ public class QuantitySelectionActivity extends BaseActivity {
                 startActivity(intent);
                 finish();
             }).addOnFailureListener(e -> {
-                // טיפול בכשלון השמירה - תוכל להציג הודעה למשתמש או לנסות שוב
                 e.printStackTrace();
             });
 

@@ -35,5 +35,4 @@ public class FirestoreUtils {
             app.setUser(new User());
         }
     }
-
 }

@@ -21,9 +21,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/light_gray"> <!-- רקע בהיר ונייטרלי -->
+        android:background="@color/light_gray">
 
-        <!-- התאמת הצבעים של toolbar עם התפריט -->
 
         <!-- Content under the NavBar -->
         <include
@@ -39,7 +38,7 @@
             android:layout_marginTop="96dp"
             android:text="@string/good_morning_yotam"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@color/dark_gray" /> <!-- טקסט בצבע אפור כהה -->
+            android:textColor="@color/dark_gray" />
 
         <!-- Calorie Circle -->
         <RelativeLayout

@@ -12,6 +12,8 @@
     <color name="light_green_variant">#66BB6A</color>
     <color name="primary_light">#C8E6C9</color> <!-- צבע ירוק בהיר, לדוגמה -->
     <color name="colorPrimary">#6200EE</color>
+    <color name="pink_100">#F8BBD0</color>
+    <color name="yellow_100">#FFF9C4</color>
     <!--    </style>-->
 
 </resources>

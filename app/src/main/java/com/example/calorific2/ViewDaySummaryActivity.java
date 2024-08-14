@@ -140,14 +140,7 @@ public class ViewDaySummaryActivity extends BaseActivity {
             user.setGramOfProtein(0);
             user.setGramOfFat(0);
         }
-        FirestoreUtils.saveUserToFirestore(user, app).addOnSuccessListener(aVoid -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }).addOnFailureListener(e -> {
-            // טיפול בכשלון השמירה - תוכל להציג הודעה למשתמש או לנסות שוב
-            e.printStackTrace();
-        });
+        FirestoreUtils.saveUserToFirestore(user, app);
 
         // Update the UI
         updateNutritionalSummary();

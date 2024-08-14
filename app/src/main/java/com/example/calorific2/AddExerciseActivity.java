@@ -85,15 +85,9 @@ public class AddExerciseActivity extends BaseActivity {
                     startActivity(intent);
                     finish();
                 }).addOnFailureListener(e -> {
-                    // טיפול בכשלון השמירה - תוכל להציג הודעה למשתמש או לנסות שוב
                     e.printStackTrace();
                 });
             }
-
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
-
         });
     }
 

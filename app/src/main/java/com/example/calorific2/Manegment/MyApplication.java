@@ -24,11 +24,9 @@ public class MyApplication extends Application {
                             if (document.exists()) {
                                 user = document.toObject(User.class);
                             } else {
-                                // אם אין מסמך, ניצור יוזר ריק ונפנה את המשתמש לפרופיל כדי לעדכן את הפרטים
                                 user = new User();
                             }
                         } else {
-                            // טיפול במקרה של כשלון בקבלת המסמך
                             task.getException().printStackTrace();
                         }
                     });

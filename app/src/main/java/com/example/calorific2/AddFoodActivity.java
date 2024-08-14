@@ -39,7 +39,7 @@ public class AddFoodActivity extends BaseActivity {
     private User user;
     private MyApplication app;
 
-    private static final long TYPING_DELAY = 500; // דיליי של חצי שנייה
+    private static final long TYPING_DELAY = 500;
     private Handler typingHandler = new Handler();
     private Runnable sendRequestRunnable = () -> sendHttpRequest(search_food.getText().toString().trim());
 
@@ -63,7 +63,7 @@ public class AddFoodActivity extends BaseActivity {
             public void onResponse(JSONObject response) {
                 try {
                     jsonResultsList.clear();
-                    adapter.updateData(new ArrayList<>()); // ריקון התוצאות הנוכחיות מה-RecyclerView
+                    adapter.updateData(new ArrayList<>());
 
                     if (response.has("hints")) {
                         for (int i = 0; i < response.getJSONArray("hints").length(); i++) {
@@ -108,7 +108,6 @@ public class AddFoodActivity extends BaseActivity {
         search_food.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // לא נדרש פעולה כאן
             }
 
             @Override
@@ -117,19 +116,17 @@ public class AddFoodActivity extends BaseActivity {
                 if (!s.toString().isEmpty()) {
                     typingHandler.postDelayed(sendRequestRunnable, TYPING_DELAY);
                 } else {
-                    rv_food_results.setVisibility(View.GONE); // הסתרת ה-RecyclerView אם השדה ריק
+                    rv_food_results.setVisibility(View.GONE);
                 }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                // לא נדרש פעולה כאן
             }
         });
     }
 
     private void setupRecyclerView() {
-        // מימוש OnItemClickListener
         adapter = new MyAdapter(new ArrayList<>(), item -> {
             handleItemClick(item);
         });

@@ -36,7 +36,7 @@ public class ReadyMealsActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        displayPreparedMeals(); // ודא שהרשימה מתעדכנת כל פעם שהפעילות חוזרת לפוקוס
+        displayPreparedMeals();
     }
 
     private void initViews() {
@@ -62,6 +62,7 @@ public class ReadyMealsActivity extends BaseActivity {
             @Override
             public void onDeleteMeal(ReadyMeal meal) {
                 user.getReadyMeals().remove(meal);
+                FirestoreUtils.saveUserToFirestore(user, app);
                 displayPreparedMeals();
                 Toast.makeText(ReadyMealsActivity.this, "Deleted " + meal.getName(), Toast.LENGTH_SHORT).show();
             }
@@ -88,21 +89,14 @@ public class ReadyMealsActivity extends BaseActivity {
         user.setGramOfProtein(user.getGramOfProtein() + readyMeal.getProteinInGrams());
         user.setCaloriesCunsumption(user.getCaloriesCunsumption() + readyMeal.getCalories());
 
-        FirestoreUtils.saveUserToFirestore(user, app).addOnSuccessListener(aVoid -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }).addOnFailureListener(e -> {
-            // טיפול בכשלון השמירה - תוכל להציג הודעה למשתמש או לנסות שוב
-            e.printStackTrace();
-        });
+        FirestoreUtils.saveUserToFirestore(user, app);
         Toast.makeText(this, "Meal added: " + readyMeal.getName(), Toast.LENGTH_SHORT).show();
     }
 
     private void moveToAddANewMealActivity(ReadyMeal meal) {
         Intent addANewMealIntent = new Intent(ReadyMealsActivity.this, AddNewMealActivity.class);
         if (meal != null) {
-            addANewMealIntent.putExtra("meal", meal); // מעביר את המנה לעריכה אם קיימת
+            addANewMealIntent.putExtra("meal", meal);
         }
         startActivity(addANewMealIntent);
     }

@@ -23,7 +23,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     public void updateData(List<JSONObject> newItems) {
-        this.items.clear(); // ניקוי הנתונים הקודמים כדי לשחרר זיכרון
+        this.items.clear();
         this.items.addAll(newItems);
         notifyDataSetChanged();
     }

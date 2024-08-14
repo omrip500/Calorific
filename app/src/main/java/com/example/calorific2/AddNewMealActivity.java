@@ -17,7 +17,7 @@ public class AddNewMealActivity extends BaseActivity {
     private User user;
 
     private MyApplication app;
-    private ReadyMeal meal; // משתנה לשמירת המנה שמבצעים עליה עריכה, אם קיימת
+    private ReadyMeal meal;
 
     private TextInputEditText mealNameInput;
     private TextInputEditText caloriesInput;
@@ -35,13 +35,13 @@ public class AddNewMealActivity extends BaseActivity {
 
         this.app = (MyApplication) getApplicationContext();
         this.user = app.getUser();
-        this.meal = (ReadyMeal) getIntent().getSerializableExtra("meal"); // קבלת המנה אם נמצאת בעריכה
+        this.meal = (ReadyMeal) getIntent().getSerializableExtra("meal");
 
         findAddNewMealViews();
         initViews();
 
         if (meal != null) {
-            populateFieldsWithMealData(meal); // מילוי השדות במידע המנה הקיים
+            populateFieldsWithMealData(meal);
         }
     }
 
@@ -56,18 +56,80 @@ public class AddNewMealActivity extends BaseActivity {
 
     private void initViews() {
         saveMealButton.setOnClickListener(v -> {
+            // Get input data from fields
             String name = mealNameInput.getText().toString().trim();
-            double calories = parseDouble(caloriesInput.getText().toString().trim());
-            double protein = parseDouble(proteinInput.getText().toString().trim());
-            double carbs = parseDouble(carbsInput.getText().toString().trim());
-            double fats = parseDouble(fatsInput.getText().toString().trim());
+            String caloriesText = caloriesInput.getText().toString().trim();
+            String proteinText = proteinInput.getText().toString().trim();
+            String carbsText = carbsInput.getText().toString().trim();
+            String fatsText = fatsInput.getText().toString().trim();
 
+            // Validate that none of the fields are empty
+            if (name.isEmpty()) {
+                Toast.makeText(AddNewMealActivity.this, "Please enter a meal name", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Validate that the meal name is not just a number
+            if (name.matches("\\d+")) {  // Checks if the name consists of only digits
+                Toast.makeText(AddNewMealActivity.this, "Meal name cannot be a number", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (caloriesText.isEmpty()) {
+                Toast.makeText(AddNewMealActivity.this, "Please enter a calorie value", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (proteinText.isEmpty()) {
+                Toast.makeText(AddNewMealActivity.this, "Please enter the amount of protein", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (carbsText.isEmpty()) {
+                Toast.makeText(AddNewMealActivity.this, "Please enter the amount of carbs", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (fatsText.isEmpty()) {
+                Toast.makeText(AddNewMealActivity.this, "Please enter the amount of fats", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Validate that numerical fields contain valid numbers
+            double calories, protein, carbs, fats;
+            try {
+                calories = Double.parseDouble(caloriesText);
+            } catch (NumberFormatException e) {
+                Toast.makeText(AddNewMealActivity.this, "Calories must be a number", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            try {
+                protein = Double.parseDouble(proteinText);
+            } catch (NumberFormatException e) {
+                Toast.makeText(AddNewMealActivity.this, "Protein must be a number", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            try {
+                carbs = Double.parseDouble(carbsText);
+            } catch (NumberFormatException e) {
+                Toast.makeText(AddNewMealActivity.this, "Carbs must be a number", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            try {
+                fats = Double.parseDouble(fatsText);
+            } catch (NumberFormatException e) {
+                Toast.makeText(AddNewMealActivity.this, "Fats must be a number", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Save the meal data
             if (meal == null) {
-                // יצירת מנה חדשה
                 meal = new ReadyMeal(name, calories, protein, carbs, fats);
                 user.getReadyMeals().add(meal);
             } else {
-                // עריכת מנה קיימת
                 double oldCalories = meal.getCalories();
                 double oldProtein = meal.getProteinInGrams();
                 double oldCarbs = meal.getCarbsInGrams();
@@ -79,16 +141,13 @@ public class AddNewMealActivity extends BaseActivity {
                         .setCarbsInGrams(carbs)
                         .setFatInGrams(fats);
 
-                // עדכון המנה הקיימת ברשימה של המשתמש
                 int index = user.getReadyMeals().indexOf(meal);
                 if (index >= 0) {
                     user.getReadyMeals().set(index, meal);
                 }
 
-                // בדיקת כל ה-meals של המשתמש ועדכון הערכים התזונתיים בהתאם
                 for (Meal userMeal : user.getMeals()) {
                     if (userMeal.getReadyMealId() != null && userMeal.getReadyMealId().equals(meal.getId())) {
-                        // עדכון הערכים התזונתיים אצל המשתמש
                         user.setCaloriesCunsumption(user.getCaloriesCunsumption() - oldCalories + calories);
                         user.setGramOfProtein(user.getGramOfProtein() - oldProtein + protein);
                         user.setGramOfCarbs(user.getGramOfCarbs() - oldCarbs + carbs);
@@ -96,21 +155,18 @@ public class AddNewMealActivity extends BaseActivity {
                     }
                 }
             }
-            FirestoreUtils.saveUserToFirestore(user, app).addOnSuccessListener(aVoid -> {
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }).addOnFailureListener(e -> {
-                // טיפול בכשלון השמירה - תוכל להציג הודעה למשתמש או לנסות שוב
-                e.printStackTrace();
-            });
-            Toast.makeText(AddNewMealActivity.this, "Meal saved: " + meal.getName(), Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(this, MainActivity.class);
+            // Save user data to Firestore
+            FirestoreUtils.saveUserToFirestore(user, app);
+            Intent intent = new Intent(this, ReadyMealsActivity.class);
             startActivity(intent);
-            finish(); // סיום הפעילות כדי לוודא שהיא לא נשארת ברקע
+            finish();
+
+            // Show a confirmation toast
+            Toast.makeText(AddNewMealActivity.this, "Meal saved: " + meal.getName(), Toast.LENGTH_SHORT).show();
         });
     }
+
 
 
     private void populateFieldsWithMealData(ReadyMeal meal) {

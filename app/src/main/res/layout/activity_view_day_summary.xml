@@ -45,11 +45,6 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical">
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_carbs"
-                        android:contentDescription="Carbs Icon" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_total_carbs"
@@ -69,11 +64,6 @@
                     android:gravity="center_vertical"
                     android:layout_marginTop="8dp">
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_protein"
-                        android:contentDescription="Protein Icon" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_total_protein"
@@ -93,12 +83,6 @@
                     android:gravity="center_vertical"
                     android:layout_marginTop="8dp">
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_fat"
-                        android:contentDescription="Fat Icon"
-                        app:tint="#000000" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_total_fat"
@@ -118,12 +102,6 @@
                     android:gravity="center_vertical"
                     android:layout_marginTop="8dp">
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_calories"
-                        android:contentDescription="Calories Icon"
-                        app:tint="#000000" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_total_calories"
@@ -143,12 +121,6 @@
                     android:gravity="center_vertical"
                     android:layout_marginTop="8dp">
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="match_parent"
-                        android:contentDescription="Calories Burned Icon"
-                        android:src="@drawable/ic_calories"
-                        app:tint="#000000" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_calories_burned"

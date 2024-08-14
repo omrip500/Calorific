@@ -3,7 +3,7 @@ package com.example.calorific2.Manegment;
 import java.io.Serializable;
 
 public class Meal implements Serializable {
-    private String readyMealId; // מזהה של הארוחה המוכנה, אם הארוחה נוצרה מ-ReadyMeal
+    private String readyMealId;
     private String name;
     private double calories;
     private double protein;

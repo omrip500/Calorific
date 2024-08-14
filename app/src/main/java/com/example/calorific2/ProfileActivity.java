@@ -3,6 +3,7 @@ package com.example.calorific2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.calorific2.Manegment.MyApplication;
 import com.example.calorific2.Manegment.User;
@@ -45,31 +46,91 @@ public class ProfileActivity extends BaseActivity {
     }
 
     private void updateUserData() {
+        // Validate that none of the fields are empty
+        if (Objects.requireNonNull(et_first_name.getText()).toString().trim().isEmpty()) {
+            Toast.makeText(ProfileActivity.this, "Please enter a first name", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        if(user == null)
+        if (Objects.requireNonNull(et_last_name.getText()).toString().trim().isEmpty()) {
+            Toast.makeText(ProfileActivity.this, "Please enter a last name", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String firstName = Objects.requireNonNull(et_first_name.getText()).toString().trim();
+        String lastName = Objects.requireNonNull(et_last_name.getText()).toString().trim();
+        String ageText = Objects.requireNonNull(et_age.getText()).toString().trim();
+        String weightText = Objects.requireNonNull(et_weight.getText()).toString().trim();
+        String calorieGoalText = Objects.requireNonNull(et_calorie_goal.getText()).toString().trim();
+
+        // Validate that the first name and last name are not numbers
+        if (firstName.matches("\\d+")) {
+            Toast.makeText(ProfileActivity.this, "First name cannot be a number", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (lastName.matches("\\d+")) {
+            Toast.makeText(ProfileActivity.this, "Last name cannot be a number", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (ageText.isEmpty()) {
+            Toast.makeText(ProfileActivity.this, "Please enter an age", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (weightText.isEmpty()) {
+            Toast.makeText(ProfileActivity.this, "Please enter a weight", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (calorieGoalText.isEmpty()) {
+            Toast.makeText(ProfileActivity.this, "Please enter a calorie goal", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        int age, weight, calorieGoal;
+
+        // Validate that the age, weight, and calorie goal are numbers
+        try {
+            age = Integer.parseInt(ageText);
+        } catch (NumberFormatException e) {
+            Toast.makeText(ProfileActivity.this, "Age must be a number", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            weight = (int) Double.parseDouble(weightText);
+        } catch (NumberFormatException e) {
+            Toast.makeText(ProfileActivity.this, "Weight must be a number", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            calorieGoal = Integer.parseInt(calorieGoalText);
+        } catch (NumberFormatException e) {
+            Toast.makeText(ProfileActivity.this, "Calorie goal must be a number", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Proceed with updating user data
+        if (user == null)
             user = new User();
 
-        user.setFirstName(Objects.requireNonNull(et_first_name.getText()).toString());
-        user.setLastName(Objects.requireNonNull(et_last_name.getText()).toString());
-        user.setAge(Integer.parseInt(Objects.requireNonNull(et_age.getText()).toString()));
-
-        int weight = (int) Double.parseDouble(Objects.requireNonNull(et_weight.getText()).toString());
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setAge(age);
         user.setWeight(weight);
+        user.setCaloriesAmountPerDay(calorieGoal);
 
-        user.setCaloriesAmountPerDay(Integer.parseInt(Objects.requireNonNull(et_calorie_goal.getText()).toString()));
-
-        // המתן לסיום פעולת השמירה ב-Firestore לפני המעבר ל-MainActivity
         FirestoreUtils.saveUserToFirestore(user, app).addOnSuccessListener(aVoid -> {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
         }).addOnFailureListener(e -> {
-            // טיפול בכשלון השמירה - תוכל להציג הודעה למשתמש או לנסות שוב
             e.printStackTrace();
         });
     }
-
-
 
     private void findProfileActivityViews() {
         et_first_name = findViewById(R.id.et_first_name);

@@ -7,5 +7,12 @@
         <item name="buttonStyle">@style/CustomButtonStyle</item>
     </style>
 
+    <!-- Theme ברירת המחדל לאפליקציה -->
     <style name="Theme.Calorific" parent="Base.Theme.Calorific" />
+
+    <!-- Theme מותאם אישית עבור ה-Splash Screen -->
+    <style name="AppTheme.NoActionBarLaunch" parent="Base.Theme.Calorific">
+        <item name="windowActionBar">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 </resources>
