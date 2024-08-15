@@ -110,6 +110,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
             startActivity(updateUserDataIntent);
         } else if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
+            app.setUser(new User());
             Intent loginIntent = new Intent(this, LoginActivity.class);
             loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(loginIntent);

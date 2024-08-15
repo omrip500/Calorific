@@ -103,10 +103,6 @@ public class QuantitySelectionActivity extends BaseActivity {
             }).addOnFailureListener(e -> {
                 e.printStackTrace();
             });
-
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
         }
     }
 }

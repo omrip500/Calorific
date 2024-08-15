@@ -1,7 +1,11 @@
 package com.example.calorific2.Manegment;
 
+import android.annotation.SuppressLint;
+
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class User implements Serializable {
     private String firstName;
@@ -19,8 +23,13 @@ public class User implements Serializable {
 
     private ArrayList<Exercise> exercises;
 
+    private String lastDateUsingTheApp;
+
+
     public User(String firstName, String lastName, int age, double weight, int caloriesAmountPerDay,
                 double gramOfCarbs, double gramOfFat, double gramOfProtein, double caloriesBurned, int caloriesCunsumption) {
+        Date currentDate = new Date();
+        this.lastDateUsingTheApp = new SimpleDateFormat("dd.MM.yyyy").format(currentDate);
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -34,13 +43,27 @@ public class User implements Serializable {
         this.meals = new ArrayList<>();
         this.readyMeals = new ArrayList<>();
         this.exercises = new ArrayList<>();
+
+
     }
 
+    @SuppressLint("SimpleDateFormat")
     public User() {
+        Date currentDate = new Date();
         this.meals = new ArrayList<>();
         this.readyMeals = new ArrayList<>();
         this.exercises = new ArrayList<>();
-    };
+        this.lastDateUsingTheApp = new SimpleDateFormat("dd.MM.yyyy").format(currentDate);
+    }
+
+    public String getLastDateUsingTheApp() {
+        return lastDateUsingTheApp;
+    }
+
+    public User setLastDateUsingTheApp(String lastDateUsingTheApp) {
+        this.lastDateUsingTheApp = lastDateUsingTheApp;
+        return this;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -163,27 +186,14 @@ public class User implements Serializable {
         return this;
     }
 
-    public void updateMealsForReadyMeal(ReadyMeal updatedReadyMeal) {
-        for (Meal meal : meals) {
-            if (updatedReadyMeal.getId().equals(meal.getReadyMealId())) {
-                // עדכון ההבדלים
-                double calorieDifference = updatedReadyMeal.getCalories() - meal.getCalories();
-                double proteinDifference = updatedReadyMeal.getProteinInGrams() - meal.getProtein();
-                double carbsDifference = updatedReadyMeal.getCarbsInGrams() - meal.getCarbs();
-                double fatDifference = updatedReadyMeal.getFatInGrams() - meal.getFat();
-
-                // עדכון ערכי הארוחה אצל המשתמש
-                meal.setCalories(updatedReadyMeal.getCalories());
-                meal.setProtein(updatedReadyMeal.getProteinInGrams());
-                meal.setCarbs(updatedReadyMeal.getCarbsInGrams());
-                meal.setFat(updatedReadyMeal.getFatInGrams());
-
-                // עדכון הסיכום הכולל אצל המשתמש
-                this.caloriesCunsumption += calorieDifference;
-                this.gramOfProtein += proteinDifference;
-                this.gramOfCarbs += carbsDifference;
-                this.gramOfFat += fatDifference;
-            }
-        }
+    public void resetFieldsForANewDay() {
+        this.gramOfCarbs = 0;
+        this.gramOfFat = 0;
+        this.gramOfProtein = 0;
+        this.caloriesBurned = 0;
+        this.caloriesCunsumption = 0;
+        this.meals = new ArrayList<>();
+        this.readyMeals = new ArrayList<>();
+        this.exercises = new ArrayList<>();
     }
 }
