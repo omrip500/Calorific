@@ -29,22 +29,26 @@ Calorific is designed to help individuals track their daily calorie intake and e
 
 
 ## Screenshots
-## Screenshots
 
 ### 1. Registration and Login
-![Authentication](screenshots/authentication.jpg)
-![Authentication Code](screenshots/auth_code.jpg)
+<img src="app/screenshots/authentication.jpg" alt="Authentication" width="400"/>
+<img src="app/screenshots/auth_code.jpg" alt="Authentication Code" width="400"/>
 
 ### 2. Home Screen
-![Home Screen](screenshots/home_screen.jpg)
-![Menu](screenshots/menu.jpg)
+<img src="app/screenshots/home_screen.jpg" alt="Home Screen" width="400"/>
 
-### 3. Adding Meals
-![Add Food](screenshots/add_food.jpg)
-![Add Prepared Meal](screenshots/add_exercise.jpg)
+### 3. Menu
+<img src="app/screenshots/menu.jpg" alt="Menu" width="400"/>
 
-### 4. Daily Summary
-![Day Summary - Part 1](screenshots/day_summary_1.jpg)
-![Day Summary - Part 2](screenshots/day_summary_2.jpg)
+### 4. Adding Meals
+<img src="app/screenshots/add_food.jpg" alt="Add Food" width="400"/>
+
+### 5. Adding Exercices
+<img src="app/screenshots/add_exercise.jpg" alt="Add Prepared Meal" width="400"/>
+
+### 6. Daily Summary
+<img src="app/screenshots/day_summary_1.jpg" alt="Day Summary - Part 1" width="400"/>
+<img src="app/screenshots/day_summary_2.jpg" alt="Day Summary - Part 2" width="400"/>
+
 
 
