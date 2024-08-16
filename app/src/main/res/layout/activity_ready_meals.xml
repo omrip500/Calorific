@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,7 +11,7 @@
 android:id="@+id/tv_prepared_meals"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
-android:text="Prepared Meals"
+android:text="@string/prepared_meals"
 android:textAppearance="@style/TextAppearance.AppCompat.Large"
 android:textColor="#000000"
 android:layout_gravity="center"
@@ -35,7 +34,7 @@ android:dividerHeight="16dp"/>
 android:id="@+id/btn_add_new_meal"
 android:layout_width="wrap_content"
 android:layout_height="60dp"
-android:text="Add a new meal"
+android:text="@string/add_a_new_meal"
 android:textColor="#000000"
 android:layout_gravity="center"
 android:layout_marginBottom="32dp"/>

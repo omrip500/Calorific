@@ -1,15 +1,15 @@
 package com.example.calorific2;
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.example.calorific2.Manegment.Exercise;
-import com.example.calorific2.Manegment.Meal;
-import com.example.calorific2.Manegment.MyApplication;
-import com.example.calorific2.Manegment.User;
+import com.example.calorific2.Management.Exercise;
+import com.example.calorific2.Management.Meal;
+import com.example.calorific2.Management.MyApplication;
+import com.example.calorific2.Management.User;
 import com.example.calorific2.Utils.FirestoreUtils;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -51,22 +51,25 @@ public class ViewDaySummaryActivity extends BaseActivity {
         populateExercisesList();
     }
 
+    @SuppressLint("SetTextI18n")
     private void updateNutritionalSummary() {
         tvTotalCarbs.setText("Total Carbohydrates: " + (int) user.getGramOfCarbs() + " g");
         tvTotalProtein.setText("Total Protein: " + (int) user.getGramOfProtein() + " g");
         tvTotalFat.setText("Total Fat: " + (int) user.getGramOfFat() + " g");
-        tvTotalCalories.setText("Total Calories: " + (int) user.getCaloriesCunsumption() + " kcal");
+        tvTotalCalories.setText("Total Calories: " + (int) user.getCaloriesConsumption() + " kcal");
     }
 
+    @SuppressLint("SetTextI18n")
     private void updateCaloriesBurned() {
         tvCaloriesBurned.setText("Calories Burned: " + (int) user.getCaloriesBurned() + " kcal");
     }
 
+    @SuppressLint("SetTextI18n")
     private void populateMealsList() {
         llMealsList.removeAllViews(); // Clear previous views
 
         for (Meal meal : user.getMeals()) {
-            View mealView = getLayoutInflater().inflate(R.layout.meal_item, null);
+            @SuppressLint("InflateParams") View mealView = getLayoutInflater().inflate(R.layout.meal_item, null);
             MaterialTextView mealName = mealView.findViewById(R.id.tv_meal_name);
             MaterialTextView mealCalories = mealView.findViewById(R.id.tv_meal_calories);
             MaterialTextView mealProtein = mealView.findViewById(R.id.tv_meal_protein);
@@ -89,11 +92,12 @@ public class ViewDaySummaryActivity extends BaseActivity {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void populateExercisesList() {
         llExercisesList.removeAllViews(); // Clear previous views
 
         for (Exercise exercise : user.getExercises()) {
-            View exerciseView = getLayoutInflater().inflate(R.layout.exercise_item, null);
+            @SuppressLint("InflateParams") View exerciseView = getLayoutInflater().inflate(R.layout.exercise_item, null);
             MaterialTextView exerciseName = exerciseView.findViewById(R.id.tv_exercise_name);
             MaterialTextView exerciseCalories = exerciseView.findViewById(R.id.tv_exercise_calories);
             Button btnRemoveExercise = exerciseView.findViewById(R.id.btn_remove_exercise);
@@ -128,14 +132,14 @@ public class ViewDaySummaryActivity extends BaseActivity {
         }
 
         // Update the user's nutritional data
-        user.setCaloriesCunsumption(totalCalories);
+        user.setCaloriesConsumption(totalCalories);
         user.setGramOfCarbs(totalCarbs);
         user.setGramOfProtein(totalProtein);
         user.setGramOfFat(totalFat);
 
         // If all meals are removed, reset the nutritional values
         if (user.getMeals().isEmpty()) {
-            user.setCaloriesCunsumption(0);
+            user.setCaloriesConsumption(0);
             user.setGramOfCarbs(0);
             user.setGramOfProtein(0);
             user.setGramOfFat(0);

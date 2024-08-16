@@ -10,10 +10,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.calorific2.Manegment.FoodItem;
-import com.example.calorific2.Manegment.Meal;
-import com.example.calorific2.Manegment.MyApplication;
-import com.example.calorific2.Manegment.User;
+import com.example.calorific2.Management.FoodItem;
+import com.example.calorific2.Management.Meal;
+import com.example.calorific2.Management.MyApplication;
+import com.example.calorific2.Management.User;
 import com.example.calorific2.Utils.FirestoreUtils;
 
 public class QuantitySelectionActivity extends BaseActivity {
@@ -89,9 +89,9 @@ public class QuantitySelectionActivity extends BaseActivity {
             double mealCarbs = foodCarbsPerOneGram * quantity;
 
             user.getMeals().add(new Meal(selectedFoodItem.getLabel(), mealCalories, mealProtein, mealFat
-                    , mealCarbs, quantity));
+                    , mealCarbs));
 
-            user.setCaloriesCunsumption(user.getCaloriesCunsumption() + mealCalories);
+            user.setCaloriesConsumption(user.getCaloriesConsumption() + mealCalories);
             user.setGramOfProtein(user.getGramOfProtein() + mealProtein);
             user.setGramOfFat(user.getGramOfFat() + mealFat);
             user.setGramOfCarbs(user.getGramOfCarbs() + mealCarbs);
@@ -100,9 +100,7 @@ public class QuantitySelectionActivity extends BaseActivity {
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 finish();
-            }).addOnFailureListener(e -> {
-                e.printStackTrace();
-            });
+            }).addOnFailureListener(Throwable::printStackTrace);
         }
     }
 }

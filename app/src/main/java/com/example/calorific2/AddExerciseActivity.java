@@ -1,5 +1,6 @@
 package com.example.calorific2;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -7,9 +8,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.calorific2.Manegment.Exercise;
-import com.example.calorific2.Manegment.MyApplication;
-import com.example.calorific2.Manegment.User;
+import com.example.calorific2.Management.Exercise;
+import com.example.calorific2.Management.MyApplication;
+import com.example.calorific2.Management.User;
 import com.example.calorific2.Utils.CsvUtil;
 import com.example.calorific2.Utils.FirestoreUtils;
 
@@ -22,8 +23,7 @@ public class AddExerciseActivity extends BaseActivity {
     private User user;
     private MyApplication app;
 
-    private AutoCompleteTextView actvExerciseType;
-    private EditText etDuration;
+    private AutoCompleteTextView actExerciseType;
     private EditText etCaloriesBurned;
     private Button btnSaveExercise;
 
@@ -42,33 +42,33 @@ public class AddExerciseActivity extends BaseActivity {
     }
 
     private void findAddExerciseActivityViews() {
-        actvExerciseType = findViewById(R.id.actv_exercise_type);
+        actExerciseType = findViewById(R.id.actv_exercise_type);
         etCaloriesBurned = findViewById(R.id.et_calories_burned);
         btnSaveExercise = findViewById(R.id.btn_save_exercise);
     }
 
+    @SuppressLint("SetTextI18n")
     private void initViews() {
         exerciseData = CsvUtil.loadExercises(this);
 
         List<String> exerciseNames = new ArrayList<>(exerciseData.keySet());
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, exerciseNames);
-        actvExerciseType.setAdapter(adapter);
-        actvExerciseType.setThreshold(1);
+        actExerciseType.setAdapter(adapter);
+        actExerciseType.setThreshold(1);
 
-        actvExerciseType.setOnFocusChangeListener((v, hasFocus) -> {
+        actExerciseType.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
-                actvExerciseType.showDropDown();
+                actExerciseType.showDropDown();
             }
         });
 
         btnSaveExercise.setOnClickListener(v -> {
-            String exerciseName = actvExerciseType.getText().toString();
+            String exerciseName = actExerciseType.getText().toString();
             double weight = user.getWeight();
 
-            if (exerciseData.containsKey(exerciseName)) {
-                
-                double caloriesPerKgPerMin = exerciseData.get(exerciseName);
+            Double caloriesPerKgPerMin = exerciseData.get(exerciseName);
+            if (caloriesPerKgPerMin != null) {
                 double caloriesBurned = caloriesPerKgPerMin * weight;
 
                 int caloriesBurnedInt = (int) caloriesBurned;
@@ -84,12 +84,10 @@ public class AddExerciseActivity extends BaseActivity {
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                     finish();
-                }).addOnFailureListener(e -> {
-                    e.printStackTrace();
-                });
+                }).addOnFailureListener(Throwable::printStackTrace);
+            } else {
+                etCaloriesBurned.setText("Exercise not found");
             }
         });
     }
-
-
 }

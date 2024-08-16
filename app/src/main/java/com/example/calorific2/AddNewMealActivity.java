@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.calorific2.Manegment.Meal;
-import com.example.calorific2.Manegment.MyApplication;
-import com.example.calorific2.Manegment.ReadyMeal;
-import com.example.calorific2.Manegment.User;
+import com.example.calorific2.Management.Meal;
+import com.example.calorific2.Management.MyApplication;
+import com.example.calorific2.Management.ReadyMeal;
+import com.example.calorific2.Management.User;
 import com.example.calorific2.Utils.FirestoreUtils;
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.Objects;
 
 public class AddNewMealActivity extends BaseActivity {
 
@@ -24,8 +26,6 @@ public class AddNewMealActivity extends BaseActivity {
     private TextInputEditText proteinInput;
     private TextInputEditText carbsInput;
     private TextInputEditText fatsInput;
-
-    private Button chooseImageButton;
     private Button saveMealButton;
 
     @Override
@@ -57,11 +57,11 @@ public class AddNewMealActivity extends BaseActivity {
     private void initViews() {
         saveMealButton.setOnClickListener(v -> {
             // Get input data from fields
-            String name = mealNameInput.getText().toString().trim();
-            String caloriesText = caloriesInput.getText().toString().trim();
-            String proteinText = proteinInput.getText().toString().trim();
-            String carbsText = carbsInput.getText().toString().trim();
-            String fatsText = fatsInput.getText().toString().trim();
+            String name = Objects.requireNonNull(mealNameInput.getText()).toString().trim();
+            String caloriesText = Objects.requireNonNull(caloriesInput.getText()).toString().trim();
+            String proteinText = Objects.requireNonNull(proteinInput.getText()).toString().trim();
+            String carbsText = Objects.requireNonNull(carbsInput.getText()).toString().trim();
+            String fatsText = Objects.requireNonNull(fatsInput.getText()).toString().trim();
 
             // Validate that none of the fields are empty
             if (name.isEmpty()) {
@@ -148,7 +148,7 @@ public class AddNewMealActivity extends BaseActivity {
 
                 for (Meal userMeal : user.getMeals()) {
                     if (userMeal.getReadyMealId() != null && userMeal.getReadyMealId().equals(meal.getId())) {
-                        user.setCaloriesCunsumption(user.getCaloriesCunsumption() - oldCalories + calories);
+                        user.setCaloriesConsumption(user.getCaloriesConsumption() - oldCalories + calories);
                         user.setGramOfProtein(user.getGramOfProtein() - oldProtein + protein);
                         user.setGramOfCarbs(user.getGramOfCarbs() - oldCarbs + carbs);
                         user.setGramOfFat(user.getGramOfFat() - oldFats + fats);
@@ -175,13 +175,5 @@ public class AddNewMealActivity extends BaseActivity {
         proteinInput.setText(String.valueOf(meal.getProteinInGrams()));
         carbsInput.setText(String.valueOf(meal.getCarbsInGrams()));
         fatsInput.setText(String.valueOf(meal.getFatInGrams()));
-    }
-
-    private double parseDouble(String value) {
-        try {
-            return Double.parseDouble(value);
-        } catch (NumberFormatException e) {
-            return 0.0;
-        }
     }
 }

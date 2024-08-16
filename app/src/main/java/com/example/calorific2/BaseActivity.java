@@ -15,8 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.calorific2.Manegment.MyApplication;
-import com.example.calorific2.Manegment.User;
+import com.example.calorific2.Management.MyApplication;
+import com.example.calorific2.Management.User;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 

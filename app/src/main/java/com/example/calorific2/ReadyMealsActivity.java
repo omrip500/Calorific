@@ -7,10 +7,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.calorific2.Adapters.ReadyMealAdapter;
-import com.example.calorific2.Manegment.Meal;
-import com.example.calorific2.Manegment.MyApplication;
-import com.example.calorific2.Manegment.ReadyMeal;
-import com.example.calorific2.Manegment.User;
+import com.example.calorific2.Management.Meal;
+import com.example.calorific2.Management.MyApplication;
+import com.example.calorific2.Management.ReadyMeal;
+import com.example.calorific2.Management.User;
 import com.example.calorific2.Utils.FirestoreUtils;
 
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class ReadyMealsActivity extends BaseActivity {
     }
 
     private void initViews() {
-        btn_add_new_meal.setOnClickListener(v -> moveToAddANewMealActivity(null));
+        btn_add_new_meal.setOnClickListener(v -> moveToAddANewMealActivity());
     }
 
     private void findPreparedMealsViews() {
@@ -79,25 +79,22 @@ public class ReadyMealsActivity extends BaseActivity {
     }
 
     private void addMealToUser(ReadyMeal readyMeal) {
-        Meal meal = new Meal(readyMeal.getId(), readyMeal.getName(), readyMeal.getCalories(), readyMeal.getProteinInGrams(),
-                readyMeal.getCarbsInGrams(), readyMeal.getFatInGrams());
+        Meal meal = new Meal(readyMeal.getId(), readyMeal.getName(), readyMeal.getCalories(), readyMeal.getProteinInGrams(), readyMeal.getFatInGrams(),
+                readyMeal.getCarbsInGrams());
 
         user.getMeals().add(meal);
 
         user.setGramOfCarbs(user.getGramOfCarbs() + readyMeal.getCarbsInGrams());
         user.setGramOfFat(user.getGramOfFat() + readyMeal.getFatInGrams());
         user.setGramOfProtein(user.getGramOfProtein() + readyMeal.getProteinInGrams());
-        user.setCaloriesCunsumption(user.getCaloriesCunsumption() + readyMeal.getCalories());
+        user.setCaloriesConsumption(user.getCaloriesConsumption() + readyMeal.getCalories());
 
         FirestoreUtils.saveUserToFirestore(user, app);
         Toast.makeText(this, "Meal added: " + readyMeal.getName(), Toast.LENGTH_SHORT).show();
     }
 
-    private void moveToAddANewMealActivity(ReadyMeal meal) {
+    private void moveToAddANewMealActivity() {
         Intent addANewMealIntent = new Intent(ReadyMealsActivity.this, AddNewMealActivity.class);
-        if (meal != null) {
-            addANewMealIntent.putExtra("meal", meal);
-        }
         startActivity(addANewMealIntent);
     }
 }

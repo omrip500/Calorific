@@ -1,4 +1,4 @@
-package com.example.calorific2.Manegment;
+package com.example.calorific2.Management;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -14,7 +14,7 @@ public class ReadyMeal implements Serializable {
     private double fatInGrams;
 
     public ReadyMeal(String name, double calories, double proteinInGrams, double carbsInGrams, double fatInGrams) {
-        this.id = UUID.randomUUID().toString(); // יצירת מזהה ייחודי
+        this.id = UUID.randomUUID().toString();
         this.name = name;
         this.calories = calories;
         this.proteinInGrams = proteinInGrams;
@@ -23,7 +23,7 @@ public class ReadyMeal implements Serializable {
     }
 
     public ReadyMeal() {
-
+        //for firebase
     }
 
     // Getters and Setters...
@@ -68,9 +68,8 @@ public class ReadyMeal implements Serializable {
         return fatInGrams;
     }
 
-    public ReadyMeal setFatInGrams(double fatInGrams) {
+    public void setFatInGrams(double fatInGrams) {
         this.fatInGrams = fatInGrams;
-        return this;
     }
 
     public String getId() {

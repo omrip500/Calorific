@@ -1,5 +1,7 @@
 package com.example.calorific2.Adapters;
 
+import android.annotation.SuppressLint;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,15 +15,16 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    private List<JSONObject> items;
-    private OnItemClickListener listener;
+public class FoodApiAdapter extends RecyclerView.Adapter<FoodApiAdapter.ViewHolder> {
+    private final List<JSONObject> items;
+    private final OnItemClickListener listener;
 
-    public MyAdapter(List<JSONObject> items, OnItemClickListener listener) {
+    public FoodApiAdapter(List<JSONObject> items, OnItemClickListener listener) {
         this.items = items;
         this.listener = listener;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void updateData(List<JSONObject> newItems) {
         this.items.clear();
         this.items.addAll(newItems);
@@ -56,7 +59,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 }).start();
             });
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("TAG", "An unexpected error occurred: ", e);
         }
     }
 

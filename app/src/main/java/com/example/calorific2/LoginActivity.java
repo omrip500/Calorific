@@ -3,11 +3,10 @@ package com.example.calorific2;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.calorific2.Manegment.MyApplication;
+import com.example.calorific2.Management.MyApplication;
 import com.example.calorific2.Utils.FirestoreUtils;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
@@ -22,7 +21,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
-    private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private MyApplication app;
 
@@ -31,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         app = (MyApplication) getApplicationContext();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -39,23 +37,26 @@ public class LoginActivity extends AppCompatActivity {
         if (user == null) {
             signIn();
         } else {
-            checkUserInFirestore(user.getUid());
+            checkUserInFirestore(user);
         }
     }
 
-    private void checkUserInFirestore(String uid) {
-        db.collection("users").document(uid).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                DocumentSnapshot document = task.getResult();
-                if (document.exists()) {
-                    FirestoreUtils.loadUserData(document, app);
-                    transactToMainActivity();
-                } else {
-                    transactToProfileActivity();
+    private void checkUserInFirestore(FirebaseUser user) {
+        if (user != null) {
+            db.collection("users").document(user.getUid()).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        FirestoreUtils.loadUserData(document, app);
+                        transactToMainActivity();
+                    } else {
+                        transactToProfileActivity();
+                    }
                 }
-            } else {
-            }
-        });
+            });
+        } else {
+            signIn();
+        }
     }
 
     private void transactToMainActivity() {
@@ -73,12 +74,7 @@ public class LoginActivity extends AppCompatActivity {
     // See: https://developer.android.com/training/basics/intents/result
     private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
             new FirebaseAuthUIActivityResultContract(),
-            new ActivityResultCallback<FirebaseAuthUIAuthenticationResult>() {
-                @Override
-                public void onActivityResult(FirebaseAuthUIAuthenticationResult result) {
-                    onSignInResult(result);
-                }
-            }
+            this::onSignInResult
     );
 
     private void onSignInResult(FirebaseAuthUIAuthenticationResult result) {
@@ -86,12 +82,13 @@ public class LoginActivity extends AppCompatActivity {
         if (result.getResultCode() == RESULT_OK) {
             // Successfully signed in
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            checkUserInFirestore(user.getUid());
-        } else {
-            // Sign in failed. If response is null the user canceled the
-            // sign-in flow using the back button. Otherwise check
-            // response.getError().getErrorCode() and handle the error.
-        }
+            if (user != null) {
+                checkUserInFirestore(user);
+            }
+        }  // Sign in failed. If response is null the user canceled the
+        // sign-in flow using the back button. Otherwise check
+        // response.getError().getErrorCode() and handle the error.
+
     }
 
     private void signIn() {

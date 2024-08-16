@@ -1,4 +1,4 @@
-package com.example.calorific2.Manegment;
+package com.example.calorific2.Management;
 
 import android.annotation.SuppressLint;
 
@@ -17,7 +17,7 @@ public class User implements Serializable {
     private double gramOfFat;
     private double gramOfProtein;
     private double caloriesBurned;
-    private double caloriesCunsumption;
+    private double caloriesConsumption;
     private ArrayList<Meal> meals;
     private ArrayList<ReadyMeal> readyMeals;
 
@@ -26,8 +26,9 @@ public class User implements Serializable {
     private String lastDateUsingTheApp;
 
 
+    @SuppressLint("SimpleDateFormat")
     public User(String firstName, String lastName, int age, double weight, int caloriesAmountPerDay,
-                double gramOfCarbs, double gramOfFat, double gramOfProtein, double caloriesBurned, int caloriesCunsumption) {
+                double gramOfCarbs, double gramOfFat, double gramOfProtein, double caloriesBurned, int caloriesConsumption) {
         Date currentDate = new Date();
         this.lastDateUsingTheApp = new SimpleDateFormat("dd.MM.yyyy").format(currentDate);
         this.firstName = firstName;
@@ -39,7 +40,7 @@ public class User implements Serializable {
         this.gramOfFat = gramOfFat;
         this.gramOfProtein = gramOfProtein;
         this.caloriesBurned = caloriesBurned;
-        this.caloriesCunsumption = caloriesCunsumption;
+        this.caloriesConsumption = caloriesConsumption;
         this.meals = new ArrayList<>();
         this.readyMeals = new ArrayList<>();
         this.exercises = new ArrayList<>();
@@ -60,9 +61,8 @@ public class User implements Serializable {
         return lastDateUsingTheApp;
     }
 
-    public User setLastDateUsingTheApp(String lastDateUsingTheApp) {
+    public void setLastDateUsingTheApp(String lastDateUsingTheApp) {
         this.lastDateUsingTheApp = lastDateUsingTheApp;
-        return this;
     }
 
     public String getFirstName() {
@@ -73,13 +73,12 @@ public class User implements Serializable {
         return exercises;
     }
 
-    public double getCaloriesCunsumption() {
-        return caloriesCunsumption;
+    public double getCaloriesConsumption() {
+        return caloriesConsumption;
     }
 
-    public User setCaloriesCunsumption(double caloriesCunsumption) {
-        this.caloriesCunsumption = caloriesCunsumption;
-        return this;
+    public void setCaloriesConsumption(double caloriesConsumption) {
+        this.caloriesConsumption = caloriesConsumption;
     }
 
     public String getLastName() {
@@ -98,29 +97,24 @@ public class User implements Serializable {
         return caloriesAmountPerDay;
     }
 
-    public User setFirstName(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
-        return this;
     }
 
-    public User setLastName(String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
-        return this;
     }
 
-    public User setAge(int age) {
+    public void setAge(int age) {
         this.age = age;
-        return this;
     }
 
-    public User setWeight(int weight) {
+    public void setWeight(int weight) {
         this.weight = weight;
-        return this;
     }
 
-    public User setCaloriesAmountPerDay(int caloriesAmountPerDay) {
+    public void setCaloriesAmountPerDay(int caloriesAmountPerDay) {
         this.caloriesAmountPerDay = caloriesAmountPerDay;
-        return this;
     }
 
     public double getGramOfCarbs() {
@@ -139,33 +133,24 @@ public class User implements Serializable {
         return caloriesBurned;
     }
 
-    public User setGramOfCarbs(double gramOfCarbs) {
+    public void setGramOfCarbs(double gramOfCarbs) {
         this.gramOfCarbs = gramOfCarbs;
-        return this;
     }
 
-    public User setGramOfFat(double gramOfFat) {
+    public void setGramOfFat(double gramOfFat) {
         this.gramOfFat = gramOfFat;
-        return this;
     }
 
-    public User setGramOfProtein(double gramOfProtein) {
+    public void setGramOfProtein(double gramOfProtein) {
         this.gramOfProtein = gramOfProtein;
-        return this;
     }
 
-    public User setCaloriesBurned(double caloriesBurned) {
+    public void setCaloriesBurned(double caloriesBurned) {
         this.caloriesBurned = caloriesBurned;
-        return this;
     }
 
     public ArrayList<Meal> getMeals() {
         return meals;
-    }
-
-    public User setMeals(ArrayList<Meal> meals) {
-        this.meals = meals;
-        return this;
     }
 
     public void addExercise(Exercise exercise) {
@@ -176,22 +161,12 @@ public class User implements Serializable {
         return readyMeals;
     }
 
-    public User setReadyMeals(ArrayList<ReadyMeal> readyMeals) {
-        this.readyMeals = readyMeals;
-        return this;
-    }
-
-    public User setWeight(double weight) {
-        this.weight = weight;
-        return this;
-    }
-
     public void resetFieldsForANewDay() {
         this.gramOfCarbs = 0;
         this.gramOfFat = 0;
         this.gramOfProtein = 0;
         this.caloriesBurned = 0;
-        this.caloriesCunsumption = 0;
+        this.caloriesConsumption = 0;
         this.meals = new ArrayList<>();
         this.readyMeals = new ArrayList<>();
         this.exercises = new ArrayList<>();

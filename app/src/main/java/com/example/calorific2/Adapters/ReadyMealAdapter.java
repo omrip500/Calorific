@@ -12,14 +12,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.example.calorific2.Manegment.ReadyMeal;
+import com.example.calorific2.Management.ReadyMeal;
 import com.example.calorific2.R;
 
 import java.util.ArrayList;
 
 public class ReadyMealAdapter extends ArrayAdapter<ReadyMeal> {
 
-    private OnMealActionListener mealActionListener;
+    private final OnMealActionListener mealActionListener;
 
     public ReadyMealAdapter(Context context, ArrayList<ReadyMeal> readyMeals, OnMealActionListener listener) {
         super(context, 0, readyMeals);
@@ -45,10 +45,10 @@ public class ReadyMealAdapter extends ArrayAdapter<ReadyMeal> {
 
         assert readyMeal != null;
         tvName.setText(readyMeal.getName());
-        tvCalories.setText(String.valueOf(readyMeal.getCalories()) + " kcal");
-        tvProtein.setText(String.valueOf(readyMeal.getProteinInGrams()) + "g Protein");
-        tvCarbs.setText(String.valueOf(readyMeal.getCarbsInGrams()) + "g Carbs");
-        tvFat.setText(String.valueOf(readyMeal.getFatInGrams()) + "g Fat");
+        tvCalories.setText(readyMeal.getCalories() + " kcal");
+        tvProtein.setText(readyMeal.getProteinInGrams() + "g Protein");
+        tvCarbs.setText(readyMeal.getCarbsInGrams() + "g Carbs");
+        tvFat.setText(readyMeal.getFatInGrams() + "g Fat");
 
         // Set onClick listeners for edit and delete buttons
         ivEdit.setOnClickListener(v -> {
@@ -66,7 +66,7 @@ public class ReadyMealAdapter extends ArrayAdapter<ReadyMeal> {
         // Set onClick listener for the entire item to handle meal selection
         convertView.setOnClickListener(v -> {
             if (mealActionListener != null) {
-                mealActionListener.onMealSelected(readyMeal); // קריאה לשיטה החדשה
+                mealActionListener.onMealSelected(readyMeal);
             }
         });
 
@@ -78,6 +78,6 @@ public class ReadyMealAdapter extends ArrayAdapter<ReadyMeal> {
     public interface OnMealActionListener {
         void onEditMeal(ReadyMeal meal);
         void onDeleteMeal(ReadyMeal meal);
-        void onMealSelected(ReadyMeal meal); // הוספת שיטה לבחירת מנה
+        void onMealSelected(ReadyMeal meal);
     }
 }

@@ -14,7 +14,7 @@
 
         <!-- Button background color -->
         <item name="colorButtonNormal">@color/dark_green</item>
-        <item name="buttonStyle">@style/CustomButtonStyle</item> <!-- סגנון ברירת מחדל לכפתורים -->
+        <item name="buttonStyle">@style/CustomButtonStyle</item>
 
         <!-- Status bar color -->
         <item name="android:statusBarColor">@color/dark_green_variant</item>

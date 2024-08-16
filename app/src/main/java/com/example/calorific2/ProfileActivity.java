@@ -5,11 +5,9 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.calorific2.Manegment.MyApplication;
-import com.example.calorific2.Manegment.User;
+import com.example.calorific2.Management.MyApplication;
+import com.example.calorific2.Management.User;
 import com.example.calorific2.Utils.FirestoreUtils;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
 
@@ -127,9 +125,7 @@ public class ProfileActivity extends BaseActivity {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
-        }).addOnFailureListener(e -> {
-            e.printStackTrace();
-        });
+        }).addOnFailureListener(Throwable::printStackTrace);
     }
 
     private void findProfileActivityViews() {

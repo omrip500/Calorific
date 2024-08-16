@@ -1,4 +1,4 @@
-package com.example.calorific2.Manegment;
+package com.example.calorific2.Management;
 
 import java.io.Serializable;
 

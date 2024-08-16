@@ -41,10 +41,11 @@ public class CsvUtil {
             }
             reader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e("CsvUtil", "IOException occurred while reading the CSV file", e);
         } catch (CsvValidationException e) {
-            throw new RuntimeException(e);
+            Log.e("CsvUtil", "CsvValidationException occurred while validating the CSV file", e);
         }
+
         Log.d("CsvUtil", "Loaded exercises: " + exercises.size());
         return exercises;
     }

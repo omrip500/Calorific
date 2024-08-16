@@ -1,14 +1,14 @@
-package com.example.calorific2.Manegment;
+package com.example.calorific2.Management;
 
 import java.io.Serializable;
 
 public class FoodItem implements Serializable {
-    private String label;
+    private final String label;
     private double calories;
     private double protein;
     private double fat;
-    private double carbs;
-    private String imageUrl;
+    private final double carbs;
+    private final String imageUrl;
 
     public FoodItem(String label, double calories, double protein, double fat, double carbs, String imageUrl) {
         this.label = label;
@@ -23,9 +23,6 @@ public class FoodItem implements Serializable {
         return label;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
-    }
 
     public double getCalories() {
         return calories;
@@ -55,16 +52,9 @@ public class FoodItem implements Serializable {
         return carbs;
     }
 
-    public void setCarbs(double carbs) {
-        this.carbs = carbs;
-    }
 
     public String getImageUrl() {
         return imageUrl;
     }
 
-    public FoodItem setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-        return this;
-    }
 }

@@ -1,6 +1,8 @@
-package com.example.calorific2.Manegment;
+package com.example.calorific2.Management;
 
 import android.app.Application;
+import android.util.Log;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -27,7 +29,12 @@ public class MyApplication extends Application {
                                 user = new User();
                             }
                         } else {
-                            task.getException().printStackTrace();
+                            Exception exception = task.getException();
+                            if (exception != null) {
+                                Log.e("TAG", "Task failed with exception: ", exception);
+                            } else {
+                                Log.e("TAG", "Task failed with an unknown error.");
+                            }
                         }
                     });
         }
