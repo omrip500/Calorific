@@ -168,7 +168,6 @@ public class User implements Serializable {
         this.caloriesBurned = 0;
         this.caloriesConsumption = 0;
         this.meals = new ArrayList<>();
-        this.readyMeals = new ArrayList<>();
         this.exercises = new ArrayList<>();
     }
 }
